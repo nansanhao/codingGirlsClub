@@ -102,7 +102,7 @@ CREATE TABLE USERS(
     usrEmail VARCHAR(50),
     usrCompanyName VARCHAR(30),
     usrCompanyAddress VARCHAR(100),
-    usrCompanyProfession VARCHAR(50),
+    usrCompanyProfession VARCHAR(50)
 )
 ```
 ### 3.建立职位表
@@ -121,9 +121,9 @@ CREATE TABLE POSITIONS(
     city VARCHAR(20),
     country VARCHAR(20),
     condition VARCHAR(20),
-    owner VARCHAR(20),
+    owner int,
     publishTime VARCHAR(20),
-    invalidTime VARCHAR(20),
+    invalidTime VARCHAR(20)
 )
 ```
 
