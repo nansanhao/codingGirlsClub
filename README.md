@@ -41,6 +41,8 @@
 * description：**id=description**(支持简单的富文本编辑；如果能再同时支持markdown，会有加分) 
 * tags：**id =tags**
 * how to apply：**id=apply**(支持简单的富文本编辑；如果能再同时支持markdown，会有加分)
+* **id=publish**（有一个发布的按钮）
+* **id=edit**（有一个编辑的按钮）
 
 ### 6. 编辑工作界面 edit.html：
 * title（必填项）：**id=editTitle**
