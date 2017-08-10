@@ -89,14 +89,14 @@ app.get('/usrs/:emailId/positions/:id',function (req,res) {
 });
 
 app.get("/positions/:id",function (req,res) {
-    var getInfo = req.params.Id;  
+    var getInfo = req.params.id;
     if(getInfo===''){
         req.models.Position.find(null,function (err,position) {
             res.json(position);
         })
     }
     else {
-        req.models.Position.find({Id:getInfo},function (err,position) {
+        req.models.Position.find({id:getInfo},function (err,position) {
             res.json(position);
         })
     }
