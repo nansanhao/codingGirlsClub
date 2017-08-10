@@ -39,6 +39,7 @@ app.use(orm.express("sqlite:public/CodingGirlsClub.db",{
     }
 }));
 //此处写API
+/*
 //1中获得筛选category和jobType的SQL版本
 app.get('/positions?category=&jobType=',urlencodedParser,function (req,res) {
   let jobtype=req.params.jobtype;
@@ -111,4 +112,25 @@ var server = app.listen(8081, function () {
     var port = server.address().port;
     console.log("应用实例，访问地址为 http://%s:%s", host, port)
 
+});
+*/
+//7 ORM EDITION
+app.get('/usrs/:emailId/positions/public',urlencodedParser,function(req,res){
+    let email = req.params.emailId;
+    let State = "public";
+    console.log(email);
+    req.models.Position.find({owner:email,condition:State},function(err,position){
+        console.log(JSON.stringify(position));
+        res.json(position);
+    })
+});
+//8 ORM EDITION
+app.get('/usrs/:emailId/positions/public',urlencodedParser,function(req,res){
+    let email = req.params.emailId;
+    let State = "hidden";
+    console.log(email);
+    req.models.Position.find({owner:email,condition:State},function(err,position){
+        console.log(JSON.stringify(position));
+        res.json(position);
+    })
 });
