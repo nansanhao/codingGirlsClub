@@ -1,0 +1,15 @@
+.input-login{
+    width: 400px;
+    height: 50px;
+}
+.glyphicon-icon{
+
+    margin-left: -80px;
+
+    z-index: 10;
+
+}
+.input-group-addon-icon{
+    background-color: transparent!important;
+    border: none;
+}

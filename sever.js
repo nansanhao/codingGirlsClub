@@ -36,26 +36,9 @@ app.use(orm.express("sqlite:public/CodingGirlsClub.db",{
         next();
     }
 }));
-
-// app.get('/',function(req,res){
-//     let count=0;
-//     req.models.Position.count(null , function(err, positionCount) {
-//        count=positionCount;
-//        console.log(positionCount);
-//     });
-// })
-// 9.POST 一个用户新建一个职位。（接收一个职位JOSN对象）
-// app.post("/usrs/:emailId/positions",fuction{
-//     res.send("positionId")
-// })
-// 10.PUT 一个用户修改‪一个职位的信息（接收一个职位JOSN对象）
-// app.put("/usrs/:emailId/positions/:id",fuction{
-//     res.send("ok")
-// })
-// 11.GET 一个用户获得‪一个职位的信息（返回一个职位JOSN对象）
-// app.get("/usrs/:emailId/positions/:id",fuction{
-//     res.send(position)
-// })
+app.get('/',function (req,res) {
+    res.sendFile(__dirname+"/public/html/home.html")
+})
 app.put('/usrs/:emailId/positions/:id',function (req,res) {
     //检测数据是否取到
     let email=req.params.emailId;
