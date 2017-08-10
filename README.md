@@ -129,10 +129,96 @@ CREATE TABLE POSITIONS(
 )
 ```
 
+
 ## 三.后台API设计
+1. GET 获得所有职位或者筛选过的职位（返回一个职位JOSN对象数组）（注意，数组转化为JOSN对象，而不是数组里的职位对象转化为JOSON对象放入数组，下同）
+```
+app.get("/positions",fuction(){
+res.send(allPositions)
+})
+```
+当要返回筛选的职位的时候传入category和jobType,即前端为
+```
+$.get("/positions？category=&jobType=",fuction(ans){
+})
+```
+
+所以这个api要对有没有传值进行判断，再返回相应值
+
+2. GET 获得title符合的职位（返回一个职位JOSN对象数组）（模糊搜索）前端要传值homeSearch
+```
+app.get("/positions",fuction(){
+res.send(positions)
+})
+```
+
+3. GET 根据职位id唯一查询一个职位(返回一个职位JOSN对象)
+```
+app.get("/positions/:id",fuction()
+res.send(position)
+})
+```
+
+4. GET 根据邮箱id获得一个用户（返回一个用户JOSN对象）
+```
+app.get("/usrs/:emailId",fuction(){
+res.send(usr)
+})
+```
+
+5. POST 注册一个新用户（接收一个用户JOSN对象）
+```
+app.post("/usrs",fuction{
+res.send("ok")
+})
+```
+
+6. PUT 修改一个用户的用户信息(接收一个用户JOSN对象)
+```
+app.put("/usrs/:emailId",fuction{
+res.send("ok")
+})
+```
+
+7. GET 获得一个用户创建的已发表职位（返回一个职位JOSN对象数组）
+```
+app.get("/usrs/:emailId/positions/public",fuction(){
+res.send(publicPositions)
+})
+```
+
+8. GET 获得一个用户创建的未发表职位（返回一个职位JOSN对象数组）
+```
+app.get("/usrs/:emailId/positions/hidden",fuction(){
+res.send(hiddenPositions)
+})
+```
+
+9. POST 一个用户新建一个职位。（接收一个职位JOSN对象）
+```
+app.post("/usrs/:emailId/positions",fuction{
+res.send("positionId")
+})
+```
+
+10. PUT 一个用户修改‪一个职位的信息（接收一个职位JOSN对象）
+```
+app.put("/usrs/:emailId/positions/:id",fuction{
+res.send("ok")
+})
+```
+
+11. GET 一个用户获得‪一个职位的信息（返回一个职位JOSN对象）
+```
+app.get("/usrs/:emailId/positions/:id",fuction{
+res.send(position)
+})
+```
+
 
 
 ## 四.前台访问后台API规范
+
 ```
 $.get("/",fuction(){
 
@@ -150,7 +236,8 @@ error:function(er){
 BackErr(er);}
 });
 ```
- 
+
+
 ## 数据库相关知识：
 ### 这里使用了orm.js来管理SQLite数据库
 #### 数据连接
