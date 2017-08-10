@@ -88,8 +88,8 @@ app.get('/usrs/:emailId/positions/:id',function (req,res) {
     })
 });
 
-app.get("/positions/id",function (req,res) {
-    var getInfo = req.query.Id;  //get访问/positions/id 键名为Id
+app.get("/positions/:id",function (req,res) {
+    var getInfo = req.params.Id;  
     if(getInfo===''){
         req.models.Position.find(null,function (err,position) {
             res.json(position);
@@ -102,8 +102,8 @@ app.get("/positions/id",function (req,res) {
     }
 });
 
-app.get("/users/emailId",function (req,res) {
-    var getInfo = req.query.emailId; //get访问"/users/emailId 键名为emailId
+app.get("/users/:emailId",function (req,res) {
+    var getInfo = req.params.emailId; 
     if(getInfo===''){
         req.models.User.find(null,function (err,usr) {
             res.json(usr);
