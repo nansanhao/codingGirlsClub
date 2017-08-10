@@ -85,7 +85,7 @@ app.get('/positions',urlencodedParser,function(req,res){
 //7.GET 获得一个用户创建的已发表职位（返回一个职位JOSN对象数组）
 app.get('/usrs/:emailId/positions/public',urlencodedParser,function(req,res){
     let id = req.body.id;
-    let sql = 'SELECT * FROM POSITIONS WHERE owner = (SELECT usrEmail FROM USERS WHERE id=? AND condition = public)';
+    let sql = 'SELECT * FROM POSITIONS WHERE owner =? AND condition = "public"';
     let sqlinfor=[usrEmail];
     connection.query(sql,sqlinfor,function (err,result){
         if(err) throw err;
@@ -95,7 +95,7 @@ app.get('/usrs/:emailId/positions/public',urlencodedParser,function(req,res){
 //8.GET 获得一个用户创建的未发表职位（返回一个职位JOSN对象数组）
 app.get('/usrs/:emailId/positions/hidden',urlencodedParser,function(req,res){
     let id = req.body.id;
-    let sql = 'SELECT * FROM POSITIONS WHERE owner = (SELECT usrEmail FROM USERS WHERE id=? AND condition = hiden)';
+    let sql = 'SELECT * FROM POSITIONS WHERE owner =? AND condition = "hidden"';
     let sqlinfor=[usrEmail];
     connection.query(sql,sqlinfor,function (err,result){
         if(err) throw err;
