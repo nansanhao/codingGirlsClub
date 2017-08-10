@@ -11,7 +11,6 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "express3-handlebars": "^0.5.2",
     "orm": "^3.2.4",
     "sqlite3": "^3.1.8"
   }
