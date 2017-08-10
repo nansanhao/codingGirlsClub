@@ -40,7 +40,7 @@ app.use(orm.express("sqlite:public/CodingGirlsClub.db",{
 
 app.get('/',function (req,res) {
     res.sendFile(__dirname+"/public/html/home.html")
-})
+});
 app.put('/usrs/:emailId/positions/:id',function (req,res) {
     //检测数据是否取到
     let email=req.params.emailId;
@@ -110,6 +110,34 @@ app.get('/usrs/:emailId/positions/hidden',function(req,res){
         console.log(JSON.stringify(position));
         res.json(position);
     })
+});
+
+app.get("/positions/:id",function (req,res) {
+    var getInfo = req.params.Id;  
+    if(getInfo===''){
+        req.models.Position.find(null,function (err,position) {
+            res.json(position);
+        })
+    }
+    else {
+        req.models.Position.find({Id:getInfo},function (err,position) {
+            res.json(position);
+        })
+    }
+});
+
+app.get("/users/:emailId",function (req,res) {
+    var getInfo = req.params.emailId; 
+    if(getInfo===''){
+        req.models.User.find(null,function (err,usr) {
+            res.json(usr);
+        })
+    }
+    else{
+        req.models.User.find({usrEmail:getInfo},function (err,usr) {
+            res.json(usr);
+        })
+    }
 });
 
 var server = app.listen(8081, function () {
