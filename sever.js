@@ -125,9 +125,9 @@ app.get("/positions/:id",function (req,res) {
         })
     }
 });
-
-app.get("/users/:emailId",function (req,res) {
-    var getInfo = req.params.emailId; 
+//根据用户邮箱id查询用户信息。
+app.get("/users/emailId",function (req,res) {
+    var getInfo = req.query.emailId;
     if(getInfo===''){
         req.models.User.find(null,function (err,usr) {
             res.json(usr);
