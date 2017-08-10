@@ -115,13 +115,6 @@ app.get("/users/:emailId",function (req,res) {
         })
     }
 });
-
-var server = app.listen(8081, function () {
-    var host = server.address().address;
-    var port = server.address().port;
-    console.log("应用实例，访问地址为 http://%s:%s", host, port)
-});
-
 //根据职位性质和职位筛选获得满足条件的职位信息。前端在选定一个具体的职位和性质后需要把路由改为/positions?category=&jobType=
 app.get("/positions",function(req,res){
     let getCategory = req.query.category;
@@ -195,4 +188,11 @@ app.post("/usrs/:emailId/positions",function(req,res){
         });
     });
 });
+var server = app.listen(8081, function () {
+    var host = server.address().address;
+    var port = server.address().port;
+    console.log("应用实例，访问地址为 http://%s:%s", host, port)
+});
+
+
 
