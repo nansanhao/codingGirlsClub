@@ -36,6 +36,10 @@ app.use(orm.express("sqlite:public/CodingGirlsClub.db",{
         next();
     }
 }));
+//发送主页html
+app.get('/',function (req,res) {
+    res.sendFile(__dirname+"/public/html/home.html")
+})
 //此处写API
 var server = app.listen(8081, function () {
     var host = server.address().address;
