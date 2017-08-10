@@ -36,11 +36,14 @@ app.use(orm.express("sqlite:public/CodingGirlsClub.db",{
         next();
     }
 }));
-//此处写API
 
+//API
+
+//显示主页面
 app.get('/',function (req,res) {
     res.sendFile(__dirname+"/public/html/home.html")
 });
+//PUT 一个用户修改‪一个职位的信息（接收一个职位JOSN对象）
 app.put('/usrs/:emailId/positions/:id',function (req,res) {
     //检测数据是否取到
     let email=req.params.emailId;
@@ -79,6 +82,7 @@ app.put('/usrs/:emailId/positions/:id',function (req,res) {
         // })
     });
 });
+//GET 一个用户获得‪一个职位的信息（返回一个职位JOSN对象）
 app.get('/usrs/:emailId/positions/:id',function (req,res) {
     let email=req.params.emailId;
     let positionId=req.params.id;
@@ -91,7 +95,7 @@ app.get('/usrs/:emailId/positions/:id',function (req,res) {
 })
 
 
-//7 ORM EDITION
+//GET 获得一个用户创建的已发表职位（返回一个职位JOSN对象数组）
 app.get('/usrs/:emailId/positions/public',function(req,res){
     let email = req.params.emailId;
     let State = "public";
@@ -101,7 +105,7 @@ app.get('/usrs/:emailId/positions/public',function(req,res){
         res.json(position);
     })
 });
-//8 ORM EDITION
+//GET 获得一个用户创建的未发表职位（返回一个职位JOSN对象数组）
 app.get('/usrs/:emailId/positions/hidden',function(req,res){
     let email = req.params.emailId;
     let State = "hidden";
@@ -111,7 +115,7 @@ app.get('/usrs/:emailId/positions/hidden',function(req,res){
         res.json(position);
     })
 });
-
+//GET 根据职位id唯一查询一个职位(返回一个职位JOSN对象)
 app.get("/positions/:id",function (req,res) {
     var getInfo = req.params.id;
     if(getInfo===''){
@@ -125,7 +129,7 @@ app.get("/positions/:id",function (req,res) {
         })
     }
 });
-
+//GET 根据邮箱id获得一个用户（返回一个用户JOSN对象）
 app.get("/users/:emailId",function (req,res) {
     var getInfo = req.params.emailId; 
     if(getInfo===''){
@@ -139,7 +143,7 @@ app.get("/users/:emailId",function (req,res) {
         })
     }
 });
-//根据职位性质和职位筛选获得满足条件的职位信息。前端在选定一个具体的职位和性质后需要把路由改为/positions?category=&jobType=
+//GET 获得所有职位或者筛选过的职位（返回一个职位JOSN对象数组）（注意，数组转化为JOSN对象，而不是数组里的职位对象转化为JOSON对象放入数组，下同）
 app.get("/positions",function(req,res){
     let getCategory = req.query.category;
     let getJobType = req.query.jobType;
@@ -164,7 +168,7 @@ app.get("/positions",function(req,res){
     }
 
 });
-//根据搜索框输入的信息查询符合条件的职位。
+//GET 获得title符合的职位（返回一个职位JOSN对象数组）（模糊搜索）前端要传值homeSearch（根据搜索框输入的信息查询）
 app.get("/positions/search",function(req,res){
     let getRequire = req.query.homeSearch;
     if(getRequire!=null){
@@ -183,7 +187,7 @@ app.get("/positions/search",function(req,res){
         });
     }
 })
-//POST 一个用户新建一个职位。（接收一个职位JSON对象）
+//POST 一个用户新建一个职位。（接收一个职位JOSN对象）
 app.post("/usrs/:emailId/positions",function(req,res){
     let email = req.params.emailId;
     req.models.Position.count(null,function(err,count){
@@ -212,6 +216,7 @@ app.post("/usrs/:emailId/positions",function(req,res){
         });
     });
 });
+//服务器
 var server = app.listen(8081, function () {
     var host = server.address().address;
     var port = server.address().port;
