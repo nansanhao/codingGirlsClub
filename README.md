@@ -132,12 +132,14 @@ CREATE TABLE POSITIONS(
 
 ## 三.后台API设计
 1. GET 获得所有职位或者筛选过的职位（返回一个职位JOSN对象数组）（注意，数组转化为JOSN对象，而不是数组里的职位对象转化为JOSON对象放入数组，下同）
-```app.get("/positions",fuction(){
+```
+app.get("/positions",fuction(){
 res.send(allPositions)
 })
 ```
 当要返回筛选的职位的时候传入category和jobType,即前端为
-```$.get("/positions？category=&jobType=",fuction(ans){
+```
+$.get("/positions？category=&jobType=",fuction(ans){
 })
 ```
 
