@@ -38,7 +38,7 @@ app.use(orm.express("sqlite:public/CodingGirlsClub.db",{
 }));
 app.get('/',function (req,res) {
     res.sendFile(__dirname+"/public/html/home.html")
-})
+});
 app.put('/usrs/:emailId/positions/:id',function (req,res) {
     //检测数据是否取到
     let email=req.params.emailId;
@@ -86,10 +86,10 @@ app.get('/usrs/:emailId/positions/:id',function (req,res) {
         console.log(JSON.stringify(position));
         res.json(position);
     })
-})
+});
 
 app.get("/positions/id",function (req,res) {
-    var getInfo = req.query.Id;  //Id
+    var getInfo = req.query.Id;  //get访问/positions/id 键名为Id
     if(getInfo===''){
         req.models.Position.find(null,function (err,position) {
             res.json(position);
@@ -103,7 +103,7 @@ app.get("/positions/id",function (req,res) {
 });
 
 app.get("/users/emailId",function (req,res) {
-    var getInfo = req.query.emailId;
+    var getInfo = req.query.emailId; //get访问"/users/emailId 键名为emailId
     if(getInfo===''){
         req.models.User.find(null,function (err,usr) {
             res.json(usr);
@@ -121,3 +121,4 @@ var server = app.listen(8081, function () {
     var port = server.address().port;
     console.log("应用实例，访问地址为 http://%s:%s", host, port)
 });
+
