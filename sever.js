@@ -36,30 +36,8 @@ app.use(orm.express("sqlite:public/CodingGirlsClub.db",{
         next();
     }
 }));
-<<<<<<< HEAD
 //此处写API
 
-//7 ORM EDITION
-app.get('/usrs/:emailId/positions/public',function(req,res){
-    let email = req.params.emailId;
-    let State = "public";
-    console.log(email);
-    req.models.Position.find({owner:email,condition:State},function(err,position){
-        console.log(JSON.stringify(position));
-        res.json(position);
-    })
-});
-//8 ORM EDITION
-app.get('/usrs/:emailId/positions/hidden',function(req,res){
-    let email = req.params.emailId;
-    let State = "hidden";
-    console.log(email);
-    req.models.Position.find({owner:email,condition:State},function(err,position){
-        console.log(JSON.stringify(position));
-        res.json(position);
-    })
-});
-=======
 app.get('/',function (req,res) {
     res.sendFile(__dirname+"/public/html/home.html")
 })
@@ -111,9 +89,31 @@ app.get('/usrs/:emailId/positions/:id',function (req,res) {
         res.json(position);
     })
 })
+
+
+//7 ORM EDITION
+app.get('/usrs/:emailId/positions/public',function(req,res){
+    let email = req.params.emailId;
+    let State = "public";
+    console.log(email);
+    req.models.Position.find({owner:email,condition:State},function(err,position){
+        console.log(JSON.stringify(position));
+        res.json(position);
+    })
+});
+//8 ORM EDITION
+app.get('/usrs/:emailId/positions/hidden',function(req,res){
+    let email = req.params.emailId;
+    let State = "hidden";
+    console.log(email);
+    req.models.Position.find({owner:email,condition:State},function(err,position){
+        console.log(JSON.stringify(position));
+        res.json(position);
+    })
+});
+
 var server = app.listen(8081, function () {
     var host = server.address().address;
     var port = server.address().port;
     console.log("应用实例，访问地址为 http://%s:%s", host, port)
 });
->>>>>>> master
