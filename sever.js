@@ -46,7 +46,7 @@ app.get('/positions?category=&jobType=',urlencodedParser,function (req,res) {
   //console.log(jobtype,category);
     let sql='SELECT * FROM POSITIONS WHERE category=? AND jobtype=?';
     let sqlinfor=[category,jobtype];
-    connection.query(sql,sqlinfor,function (err, result) {
+    connection.each(sql,sqlinfor,function (err, result) {
         if(err) throw  err;
         res.send(result);
     });
@@ -57,7 +57,7 @@ app.get('/positions',urlencodedParser,function(req,res){
     let title = req.body.title;
     let sql = '';
     let sqlinfor=[title];
-    connection.query(sql,sqlinfor,function (err,result){
+    connection.each(sql,sqlinfor,function (err,result){
         if(err) throw err;
         res.send(result);
     });
@@ -68,7 +68,7 @@ app.get('/positions',urlencodedParser,function(req,res){
     let id = req.body.id;
     let sql = 'SELECT * FROM POSITIONS WHERE id=?';
     let sqlinfor=[id];
-    connection.query(sql,sqlinfor,function (err,result){
+    connection.each(sql,sqlinfor,function (err,result){
         if(err) throw err;
         res.send(result);
     });
@@ -78,7 +78,7 @@ app.get('/positions',urlencodedParser,function(req,res){
     let email = req.body.usrEmail;
     let sql = 'SELECT * FROM POSITIONS WHERE email=?';
     let sqlinfor=[usrEmail];
-    connection.query(sql,sqlinfor,function (err,result){
+    connection.each(sql,sqlinfor,function (err,result){
         if(err) throw err;
         res.send(result);
     });
@@ -89,7 +89,7 @@ app.get('/usrs/:emailId/positions/public',urlencodedParser,function(req,res){
     let id = req.body.id;
     let sql = 'SELECT * FROM POSITIONS WHERE owner =? AND condition = "public"';
     let sqlinfor=[usrEmail];
-    connection.query(sql,sqlinfor,function (err,result){
+    connection.each(sql,sqlinfor,function (err,result){
         if(err) throw err;
         res.send(result);
     });
@@ -99,7 +99,7 @@ app.get('/usrs/:emailId/positions/hidden',urlencodedParser,function(req,res){
     let id = req.body.id;
     let sql = 'SELECT * FROM POSITIONS WHERE owner =? AND condition = "hidden"';
     let sqlinfor=[usrEmail];
-    connection.query(sql,sqlinfor,function (err,result){
+    connection.each(sql,sqlinfor,function (err,result){
         if(err) throw err;
         res.send(result);
     });
