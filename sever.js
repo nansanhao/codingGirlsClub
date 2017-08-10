@@ -94,12 +94,6 @@ var server = app.listen(8081, function () {
 });
 
 
-//获得所有的职位信息，并以json格式发送。
-app.get("/position",function(req,res){
-    req.models.Position.find(null,function (err,allPositions) {
-        res.json(allPositions);
-    });
-})
 //根据职位性质和职位筛选获得满足条件的职位信息。前端在选定一个具体的职位和性质后需要把路由改为/positions?category=&jobType=
 app.get("/positions",function(req,res){
     let getCategory = req.query.category;
@@ -118,22 +112,26 @@ app.get("/positions",function(req,res){
         });
     }else{
         req.models.Position.find(null,function (err,allPositions) {
+
             res.json(allPositions);
+
         });
     }
 
 });
 //根据搜索框输入的信息查询符合条件的职位。
 app.get("/positions/search",function(req,res){
-    let getRequire = req.body.homeSearch;
+    let getRequire = req.query.homeSearch;
     if(getRequire!=null){
-        req.models.Position.find({or:[{title:getRequire},{company:getRequire},
-            {category:getRequire},{city:getRequire},{country:getRequire},
-            {jobType:getRequire}]},function (err,positions) {
+        req.models.Position.find({or:[{title: getRequire},{company: getRequire},
+            {category: getRequire},{city: getRequire},{country: getRequire},
+            {tags: getRequire},{id: getRequire},
+            {jobType: getRequire}]},function (err,positions) {
             res.json(positions);
             console.log(positions[0].id);
         });
-    }else{
+    }
+    else{
         req.models.Position.find(null,function (err,positions) {
             res.json(positions);
             console.log(positions[0].id);
