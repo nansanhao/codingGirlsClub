@@ -11,6 +11,11 @@
     /*background-color: #2aabd2;*/
     width: 40%;
 }
+
 #logOut{
-    margin-left: 405px;
+    margin-left: 78%;
+}
+#test{
+    color: #c7254e;
+    font-size: 20px;
 }
