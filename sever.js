@@ -245,7 +245,6 @@ app.put('/usrs/:emailId/positions/:id',function (req,res) {
 });
 
 //11.GET 一个用户获得‪一个职位的信息（返回一个职位JOSN对象）
->>>>>>> master
 app.get('/usrs/:emailId/positions/:id',function (req,res) {
     let email=req.params.emailId;
     let positionId=req.params.id;
