@@ -3,6 +3,8 @@ let express =require('express');
 let orm=require('orm');
 let bodyparser=require("body-parser");
 let app = express();
+let uuid= require("node-uuid");
+let mailer=require("./mailer")
 app.use(bodyparser.urlencoded({extended:true}));
 app.use(express.static('public'));
 app.use(orm.express("sqlite:public/CodingGirlsClub.db",{
@@ -31,7 +33,10 @@ app.use(orm.express("sqlite:public/CodingGirlsClub.db",{
             usrEmail:{type:'text'},
             usrCompanyName:{type:'text'},
             usrCompanyAddress:{type:'text'},
-            usrCompanyProfession:{type:'text'}
+            usrCompanyProfession:{type:'text'},
+            code:{type:'text'},
+            date:{type:'number'},
+            islive:{type:'number'}
         });
         next();
     }
@@ -117,18 +122,49 @@ app.get("/users/:emailId",function (req,res) {
 });
 //5.POST  注册一个新用户(接收一个用户JSON对像)
 app.post("/users",function (req,res) {
+
     var newRecord={};
     var countx=0;
+    var codes = uuid.v4();
+
+    newRecord.code=codes;
+    console.log(codes);
+    newRecord.islive=0;
+    newRecord.date=Date.now()+3600000 *24;
+    newRecord.usrPassword=req.body.signConfirmPassword;
+    newRecord.usrEmail=req.body.signEmail;
+    console.log(newRecord.usrEmail);
     req.models.User.count(null,function(err,edcount){
+        console.log(1);
         countx=edcount;
         console.log(edcount);
         newRecord.id=countx+1;
-        newRecord.usrPassword=req.body.signConfirmPassword;
-        req.models.User.create(newRecord,function(err,re){
-            if(err)  return res.status(500).json({error:err});
-            console.log("ok");
-        })
 
+
+        mailer({
+                to:  newRecord.usrEmail,
+                subject:'激活帐号',
+                text: `点击激活：<a href="http://localhost:8081/checkCode?mail=`+newRecord.usrEmail+`&code=`+newRecord.code//接收激活请求的链接
+
+            }
+        )
+        req.models.User.find({usrEmail:newRecord.usrEmail}, function (err, user) {
+            let flag=1;
+            if(user.length!=0)
+            {
+                for(var i=0;i<user.length;i++){
+                    if(user[i].islive==1){
+                        flag=0;
+                        res.send("邮箱已经被使用");
+                    }
+                }
+            }
+
+            req.models.User.create(newRecord, function (err, re) {
+                if (err) return re.status(500).json({error: err});
+                console.log("ok");
+            })
+        })
     })
 
 
@@ -141,7 +177,7 @@ app.put("/users/:emailID",function (req,res) {
         if(err) return res.status(500).json({error:err.message})
 
         user[0].usrpassword=req.body.detailPassword;
-        user[0].CompanyName=req.body.detailCompanyName;
+        user[0].usrCompanyName=req.body.detailCompanyName;
         user[0].usrCompanyAddress=req.body.detailCompanyAddress;
         user[0].usrCompanyProfession=req.body.detailCompanyProfession;
 
@@ -250,6 +286,32 @@ app.get('/usrs/:emailId/positions/:id',function (req,res) {
         console.log(JSON.stringify(position));
         res.json(position);
     })
+});
+//12.增加了一个验证激活码的api
+app.get('/checkCode', function (req, res){
+    var usermail = req.query.mail;
+   var code = req.query.code;
+   //var outdate = req.query.outdate;
+    req.models.User.find({usrEmail:usermail}, function (err, user){
+        for(var i=0;i<user.length;i++) {
+            if (code == user[i].code && user[i].islive == 0 && (user[i].date - Date.now()) > 0) {
+
+                console.log(1);
+                user[i].islive = 1;
+                user[i].save(function (err) {
+                    if (err) {
+                        console.log("失败")
+
+                    } else {
+                        res.send('激活成功请登录！')
+                        };
+
+
+                });
+            }
+        }
+    });
+
 });
 
 //服务器
