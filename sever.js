@@ -163,6 +163,7 @@ app.get('/usrs/:emailId/positions/public',function(req,res){
         res.json(position);
     })
 });
+
 //8.GET 获得一个用户创建的未发表职位（返回一个职位JOSN对象数组）
 app.get('/usrs/:emailId/positions/hidden',function(req,res){
     let email = req.params.emailId;
@@ -173,6 +174,7 @@ app.get('/usrs/:emailId/positions/hidden',function(req,res){
         res.json(position);
     })
 });
+
 //9.POST 一个用户新建一个职位。（接收一个职位JOSN对象）
 app.post("/usrs/:emailId/positions",function(req,res){
     let email = req.params.emailId;
@@ -203,6 +205,7 @@ app.post("/usrs/:emailId/positions",function(req,res){
     });
 });
 //10.PUT 一个用户修改‪一个职位的信息（接收一个职位JOSN对象）
+
 app.put('/usrs/:emailId/positions/:id',function (req,res) {
     //检测数据是否取到
     let email=req.params.emailId;
@@ -241,6 +244,7 @@ app.put('/usrs/:emailId/positions/:id',function (req,res) {
         // })
     });
 });
+
 //11.GET 一个用户获得‪一个职位的信息（返回一个职位JOSN对象）
 app.get('/usrs/:emailId/positions/:id',function (req,res) {
     let email=req.params.emailId;
