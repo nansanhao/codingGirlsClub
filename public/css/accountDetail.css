@@ -1,0 +1,21 @@
+.detailE{
+    margin: 0 auto;
+    width: 40%;
+    height: 25px;
+}
+.accountInfo{
+    /*background-color: #2aabd2;*/
+}
+.bs-example{
+    margin: 0 auto;
+    /*background-color: #2aabd2;*/
+    width: 40%;
+}
+
+#logOut{
+    margin-left: 78%;
+}
+#test{
+    color: #c7254e;
+    font-size: 20px;
+}

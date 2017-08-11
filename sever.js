@@ -43,7 +43,9 @@ app.use(orm.express("sqlite:public/CodingGirlsClub.db",{
 app.get('/',function (req,res) {
     res.sendFile(__dirname+"/public/html/home.html")
 });
+
 //1.GET 获得所有职位或者筛选过的职位（返回一个职位JOSN对象数组）（注意，数组转化为JOSN对象，而不是数组里的职位对象转化为JOSON对象放入数组，下同）
+
 app.get("/positions",function(req,res){
     let getCategory = req.query.category;
     let getJobType = req.query.jobType;
@@ -102,8 +104,8 @@ app.get("/positions/:id",function (req,res) {
     }
 });
 //4.GET 根据邮箱id获得一个用户（返回一个用户JOSN对象）
-app.get("/users/:emailId",function (req,res) {
-    var getInfo = req.params.emailId;
+app.get("/users/emailId",function (req,res) {
+    var getInfo = req.query.emailId;
     if(getInfo===''){
         req.models.User.find(null,function (err,usr) {
             res.json(usr);
@@ -131,7 +133,6 @@ app.post("/users",function (req,res) {
 
     })
 
-
 });
 //6.PUT 修改一个用户的用户信息(接受一个用户JSON对象)
 app.put("/users/:emailID",function (req,res) {
@@ -141,7 +142,7 @@ app.put("/users/:emailID",function (req,res) {
         if(err) return res.status(500).json({error:err.message})
 
         user[0].usrpassword=req.body.detailPassword;
-        user[0].CompanyName=req.body.detailCompanyName;
+        user[0].usrCompanyName=req.body.detailCompanyName;
         user[0].usrCompanyAddress=req.body.detailCompanyAddress;
         user[0].usrCompanyProfession=req.body.detailCompanyProfession;
 
@@ -255,6 +256,21 @@ app.get('/usrs/:emailId/positions/:id',function (req,res) {
         res.json(position);
     })
 });
+//12.POST 一个用户完善自己的信息。
+app.post('/usr/emailId/info',function(req,res){
+    let email = req.query.emailId;
+    req.models.User.find({usrEmail: email }, function (err, user) {
+        // console.log("People found: %d", user.length);
+        user[0].usrPassword= req.body.usrPassword;
+        user[0].usrCompanyName= req.body.usrCompanyName;
+        user[0].usrCompanyAddress= req.body.usrCompanyAddress;
+        user[0].usrCompanyProfession= req.body.usrCompanyProfession;
+        user[0].save(function (err) {
+            // err.msg = "under-age";
+        });
+        res.json(user);
+    });
+})
 
 //服务器
 var server = app.listen(8081, function () {
