@@ -104,8 +104,8 @@ app.get("/positions/:id",function (req,res) {
     }
 });
 //4.GET 根据邮箱id获得一个用户（返回一个用户JOSN对象）
-app.get("/users/emailId",function (req,res) {
-    var getInfo = req.query.emailId;
+app.get("/users/：emailId",function (req,res) {
+    var getInfo = req.params.emailId;
     if(getInfo===''){
         req.models.User.find(null,function (err,usr) {
             res.json(usr);

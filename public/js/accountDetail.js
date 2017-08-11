@@ -1,6 +1,6 @@
 'use strict';
 window.onload = function(){
-    $.get('/users/emailId?emailId=389746614@qq.com',function (usr,status){
+    $.get('/users/389746614@qq.com',function (usr,status){
         console.log(JSON.stringify(usr));
         console.log(usr[0].id);
         console.log(usr[0].usrCompanyAddress);
