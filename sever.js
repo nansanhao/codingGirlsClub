@@ -135,7 +135,7 @@ app.post("/users",function (req,res) {
     })
 
 });
-//6.POST 一个用户完善自己的信息。
+//6.POST 一个用户完善自己的信息。修改一个用户的用户信息(接受一个用户JSON对象)
 app.post('/users/:emailId',function(req,res){
     let email = req.params.emailId;
     req.models.User.find({usrEmail: email }, function (err, user) {
@@ -253,8 +253,6 @@ app.get('/usrs/:emailId/positions/:id',function (req,res) {
         res.json(position);
     })
 });
-
-
 //服务器
 var server = app.listen(8081, function () {
     var host = server.address().address;
