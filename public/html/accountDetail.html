@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <title>accountDetail</title>
     <!--引入bootstrap和jQuery以及该html对应的css和js文件-->
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-    <script src="/js/accountDetail.js" ></script>
-    <link href="/css/accountDetail.css" rel="stylesheet" type="text/css" />
+    <script src="../js/accountDetail.js" ></script>
+    <link href="../css/accountDetail.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <!--导航栏-->
+<form action>
 <nav class="navbar navbar-default" role="navigation">
     <div class="container">
         <!--注册和登录按钮-->
@@ -39,13 +40,82 @@
                 <li ><a href="/html/home.html">ALL JOBS</a></li>
                 <li><a href="/html/postJob.html">POST A JOB</a></li>
                 <li><a href="/html/myPost.html">MY POST</a></li>
-                <li><a href="/html/accountDetail.html">ACCOUNT</a></li>
+                <li><a href="/html/accountDetail.html" id="account">ACCOUNT</a></li>
             </ul>
         </div>
         <!---->
     </div>
 </nav>
 <!---->
-<p>Account</p>
+    <div class="accountInfo">
+        <!--Email输入框-->
+        <div class="input-group input-login detailE">
+            <input type="text" class="form-control input-login" id="detailEmail" placeholder="Email" >
+            <span class="input-group-addon input-group-addon-icon"  >
+                <span class="glyphicon glyphicon-user glyphicon-icon" ></span></span>
+        </div>
+        <!---->
+        <br>
+
+        <!--公司名称输入框-->
+        <div class="input-group input-login detailE">
+            <input type="text" class="form-control input-login " id="detailCompanyName" name="detailCompanyName" placeholder="CompanyName">
+            <span class="input-group-addon input-group-addon-icon">
+                <span class="glyphicon glyphicon glyphicon-dashboard glyphicon-icon"></span></span>
+        </div>
+        <!---->
+        <br>
+        <!--公司地址输入框-->
+        <div class="input-group input-login detailE">
+            <input type="text" class="form-control input-login " id="detailCompanyAddress" name="detailCompanyAddress" placeholder="CompanyAddress">
+            <span class="input-group-addon input-group-addon-icon ">
+                <span class="glyphicon glyphicon glyphicon-record glyphicon-icon"></span></span>
+        </div>
+        <!---->
+        <br>
+        <!--公司所属行业输入框-->
+        <div class="input-group input-login detailE">
+            <input type="text" class="form-control input-login " id="detailCompanyProfession" name="detailCompanyProfession" placeholder="CompanyProfession">
+            <span class="input-group-addon input-group-addon-icon">
+                <span class="glyphicon glyphicon-globe glyphicon-icon"></span></span>
+        </div>
+
+        <!---->
+        <br>
+        <!--password输入框-->
+        <div class="input-group input-login detailE">
+            <input type="password" class="form-control input-login " id="detailPassword" placeholder="Password">
+            <span class="input-group-addon input-group-addon-icon">
+                <span class="glyphicon glyphicon-lock glyphicon-icon"></span></span>
+        </div>
+        <!---->
+        <br>
+        <!--Password confirmation输入框-->
+        <div class="input-group input-login detailE">
+            <input type="password" class="form-control input-login " id="detailConfirmPassword" name="detailConfirmPassword" placeholder="ConfirmPassword">
+            <span class="input-group-addon input-group-addon-icon">
+                <span class="glyphicon glyphicon-lock glyphicon-icon"></span></span>
+        </div>
+        <!---->
+        <br>
+        <!--Current password输入框-->
+        <div class="input-group input-login detailE">
+            <input type="password" class="form-control input-login " id="detailCurrentPassword" placeholder="CurrentPassword">
+            <span class="input-group-addon input-group-addon-icon">
+                <span class="glyphicon glyphicon-lock glyphicon-icon"></span></span>
+        </div>
+        <!---->
+        <br>
+        <!--更改按钮和注销按钮-->
+        <div class="bs-example" id="butt">
+            <p id="test" type="text"></p>
+
+            <button type="button" class="btn btn-primary" id="modify">更改</button>
+            <button type="button" class="btn btn-primary" id="logOut">注销</button>
+            <br>
+        </div>
+        <!---->
+    </div>
+</form>
 </body>
 </html>
