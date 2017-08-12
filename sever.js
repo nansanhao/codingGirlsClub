@@ -74,18 +74,19 @@ app.get("/positions",function(req,res){
 app.get("/positions/search",function(req,res){
     let getRequire = req.query.homeSearch;
     if(getRequire!=null){
-        req.models.Position.find({or:[{title: orm.like("%"+getRequire+"%")},{company: getRequire},
-            {category: getRequire},{city: getRequire},{country: getRequire},
-            {tags: getRequire},{id: getRequire},
-            {jobType: getRequire}]},function (err,positions) {
+
+        req.models.Position.find({or:[{title: orm.like("%"+getRequire+"%")},{company: orm.like("%"+getRequire+"%")},
+            {category: orm.like("%"+getRequire+"%")},{city: orm.like("%"+getRequire+"%")},{country: orm.like("%"+getRequire+"%")},
+            {tags: orm.like("%"+getRequire+"%")},
+            {jobType: orm.like("%"+getRequire+"%")}]},function (err,positions) {
             res.json(positions);
-            console.log(positions[0].id);
+            //console.log(positions[0].id);
         });
     }
     else{
         req.models.Position.find(null,function (err,positions) {
             res.json(positions);
-            console.log(positions[0].id);
+            //console.log(positions[0].id);
         });
     }
 });
