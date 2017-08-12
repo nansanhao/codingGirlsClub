@@ -74,7 +74,7 @@ app.get("/positions",function(req,res){
 app.get("/positions/search",function(req,res){
     let getRequire = req.query.homeSearch;
     if(getRequire!=null){
-        req.models.Position.find({or:[{title: getRequire},{company: getRequire},
+        req.models.Position.find({or:[{title: orm.like("%"+getRequire+"%")},{company: getRequire},
             {category: getRequire},{city: getRequire},{country: getRequire},
             {tags: getRequire},{id: getRequire},
             {jobType: getRequire}]},function (err,positions) {
@@ -104,7 +104,7 @@ app.get("/positions/:id",function (req,res) {
     }
 });
 //4.GET 根据邮箱id获得一个用户（返回一个用户JOSN对象）
-app.get("/users/：emailId",function (req,res) {
+app.get("/users/:emailId",function (req,res) {
     var getInfo = req.params.emailId;
     if(getInfo===''){
         req.models.User.find(null,function (err,usr) {
@@ -257,8 +257,8 @@ app.get('/usrs/:emailId/positions/:id',function (req,res) {
     })
 });
 //12.POST 一个用户完善自己的信息。
-app.post('/usr/emailId/info',function(req,res){
-    let email = req.query.emailId;
+app.post('/usr/emailId/info:emailId',function(req,res){
+    let email = req.params.emailId;
     req.models.User.find({usrEmail: email }, function (err, user) {
         // console.log("People found: %d", user.length);
         user[0].usrPassword= req.body.usrPassword;

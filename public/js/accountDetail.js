@@ -26,9 +26,10 @@ window.addEventListener('DOMContentLoaded',function(){
                 // alert(JSON.stringify(oneUser));
                 // console.log(status);
             });
+            let testText = document.getElementById("test").value;
+            alert(testText);
             $('#test').append('添加成功');
         }else{
-            // $('#test').append('密码输入错误，请重试！') ;
             let str = "<div class='alert alert-warning alert-dismissible' role='alert'>"+
                 "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"+
                 "<span aria-hidden='true'>&times;</span>"+"</button>"+" 密码输入错误，请重试！</div>";
