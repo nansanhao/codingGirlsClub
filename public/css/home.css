@@ -1,0 +1,29 @@
+/*输入框的css样式*/
+.input-login{
+    width: 400px;
+    height: 50px;
+
+}
+.glyphicon-icon{
+
+    margin-left: -80px;
+
+    z-index: 10;
+
+}
+.input-group-addon-icon{
+    background-color: transparent!important;
+    border: none;
+}
+/*职位的css样式*/
+.position{
+    border:1px solid #ccc;
+    margin: 40px;
+
+}
+.position-h{
+    text-indent:2.5em;
+}
+.position-a{
+    float: right;
+}
