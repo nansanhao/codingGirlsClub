@@ -22,12 +22,10 @@ window.addEventListener('DOMContentLoaded',function(){
             oneUser[0].usrCompanyName= document.getElementById("detailCompanyName").value;
             oneUser[0].usrCompanyAddress= document.getElementById("detailCompanyAddress").value;
             oneUser[0].usrCompanyProfession= document.getElementById("detailCompanyProfession").value;
-            $.post('/usr/emailId/info?emailId=389746614@qq.com',oneUser[0],function(){
+            $.post('/users/389746614@qq.com',oneUser[0],function(){
                 // alert(JSON.stringify(oneUser));
                 // console.log(status);
             });
-            let testText = document.getElementById("test").value;
-            alert(testText);
             $('#test').append('添加成功');
         }else{
             let str = "<div class='alert alert-warning alert-dismissible' role='alert'>"+
