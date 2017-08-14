@@ -10,11 +10,13 @@
             crossorigin="anonymous"></script>
     <script src="../js/accountDetail.js" ></script>
     <link href="../css/accountDetail.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link href="../css/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <!--导航栏-->
 <form action>
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default" id="nav" role="navigation">
     <div class="container">
         <!--注册和登录按钮-->
         <ul class="nav navbar-nav navbar-right " id="logAcount">
@@ -115,6 +117,19 @@
             <br>
         </div>
         <!---->
+    </div>
+    <div id="effect">
+    <h1>
+        scroll
+        <svg version="1.1" id="svg-arrow-down" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+       x="0px" y="0px" viewBox="0 0 22 35" style="enable-background:new 0 0 22 35;" xml:space="preserve">
+    <polygon class="arrow" style="fill:#000000;" points="20.58,11.584 12.004,20.158 12.004,0 9.996,0 9.996,20.158 1.42,11.584 0,13.004 11,24
+					22,13.004 "></polygon>
+    </svg>
+    </h1>
+    <div id="cover"></div>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+    <script src="../js/index.js"></script>
     </div>
 </form>
 </body>

@@ -26,7 +26,7 @@ window.addEventListener('DOMContentLoaded',function(){
                 // alert(JSON.stringify(oneUser));
                 // console.log(status);
             });
-            $('#test').append('添加成功');
+            $('#test').append('修改成功');
         }else{
             let str = "<div class='alert alert-warning alert-dismissible' role='alert'>"+
                 "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"+

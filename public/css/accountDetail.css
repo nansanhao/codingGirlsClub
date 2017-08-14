@@ -5,6 +5,13 @@
 }
 .accountInfo{
     /*background-color: #2aabd2;*/
+    position: fixed;
+    z-index: 2;
+    margin-top: 100px;
+}
+#nav{
+    position: fixed;
+    z-index: 2;
 }
 .bs-example{
     margin: 0 auto;
