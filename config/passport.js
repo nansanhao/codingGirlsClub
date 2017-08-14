@@ -10,8 +10,8 @@ var dbconfig = require('./database');
 //var connection = mysql.createConnection(dbconfig.connection);
 
 //connection.query('USE ' + dbconfig.database);
-// expose this function to our app using module.exports
-module.exports = function(passport) {
+// expose this function to our app using modles.exports
+models.exports = function(passport) {
 
     // =========================================================================
     // passport session setup ==================================================
