@@ -3,7 +3,7 @@ $(document).ready(function () {
         //alert("ok")
         $("#logAcount").empty();
         let str=`<li><a href="#"><span class="glyphicon glyphicon-user"></span> email</a></li>`;
-        str+=`<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> EXIT</a></li>`
+        str+=`<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> EXIT</a></li>`;
 
         $("#logAcount").append(str);
     })

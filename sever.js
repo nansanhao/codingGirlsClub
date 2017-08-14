@@ -314,8 +314,51 @@ app.get('/checkCode', function (req, res){
 
 });
 
+
+//13.修改密码发送邮件
+app.post("/change_pass",function(req,res){
+    req.models.User.find({usrEmail:req.body.signEmail},function(err,user){
+        var flag=1;
+        if(user.length==0) flag=0;
+        var i=0;
+        for(;i<user.length;i++){
+            if(user[i].islive==1){
+                break;
+            }
+        }
+        if(i>=user.length) flag==0;
+        if(flag==0) res.send("false");
+        if(flag==1){
+            mailer({
+                    to:  req.body.signEmail,
+                    subject:'重置密码',
+                    text: `点击重置：<a href="http://localhost:8081/resetpass?mail=`+req.body.signEmail+`&password=`+req.body.signPassword//接收激活请求的链接
+
+                }
+            )
+        }
+
+    })
+})
+//14.修改密码
+app.get('/resetpass', function (req, res){
+    var usermail = req.query.mail;
+    var secpass = req.query.password;
+    //var outdate = req.query.outdate;
+    req.models.User.find({usrEmail:usermail}, function (err, user){
+        user[0].usrPassword=secpass;
+        user[0].save(function (err) {
+            if(err) return res.status(500).json({error:err.message})
+            res.alert({message:"用户密码更新成功"})
+
+        })
+
+    });
+
+});
+
 //服务器
-var server = app.listen(8081, function () {
+var server = app.listen(8082, function () {
     var host = server.address().address;
     var port = server.address().port;
     console.log("应用实例，访问地址为 http://%s:%s", host, port)

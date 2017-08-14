@@ -55,32 +55,62 @@
     <!--&lt;!&ndash;&ndash;&gt;-->
     <br>
     <!--邮件地址输入框-->
-    <div class="input-group input-login">
-        <input type="text" class="form-control input-login"  placeholder="Email" id="signEmail" name="signEmail">
+    <div class="input-group input-login" id="1">
+        <input type="email" class="form-control input-login" placeholder="Email" id="signEmail" name="signEmail" onkeyup="checkmail(this.id)" >
         <span class="input-group-addon input-group-addon-icon"><span class="glyphicon glyphicon-envelope glyphicon-icon"></span></span>
     </div>
     <!---->
     <br>
     <!--密码输入框-->
-    <div class="input-group input-login" >
-        <input type="text" class="form-control input-login " placeholder="Password" id="signPassword" name="signPassword">
+    <div class="input-group input-login" id="2">
+        <input type="text" class="form-control input-login " placeholder="Password" id="signPassword" name="signPassword" onkeyup="checkpass(this.id)" >
         <span class="input-group-addon input-group-addon-icon"><span class="glyphicon glyphicon-lock glyphicon-icon"></span></span>
     </div>
     <!---->
     <br>
     <!--确认密码输入框-->
-    <div class="input-group input-login">
-        <input type="text" class="form-control input-login " placeholder="Repeat Password" id="signConfirmPassword" name="signConfirmPassword">
+    <div class="input-group input-login" id="3">
+        <input type="text" class="form-control input-login " placeholder="Repeat Password" id="signConfirmPassword" name="signConfirmPassword" onkeyup="checksecpass(this.id)">
         <span class="input-group-addon input-group-addon-icon"><span class="glyphicon glyphicon-lock glyphicon-icon"></span></span>
     </div>
     <!---->
     <br>
     <!--注册按钮-->
     <div class="bs-example">
-        <button type="button" class="btn btn-primary"  id="signIn">REGISTER</button>
+
+        <button type="button" class="btn btn-default"  id="signIn"><a href="./home.html">REGISTER</a></button>
+
     </div>
     <!---->
 
 </div>
+<script type="text/javascript">
+    var t1;
+
+    function checkmail(x)
+    {
+        $('#check1').remove();
+        var y=document.getElementById(x).value
+        if(!/[@]{1}/.test(y))
+            $('#1').append( `<p  id="check1" style="color:#b92c28">请输入正确的邮箱格式</p>`);
+    }
+    function checkpass(x)
+    {
+        $('#check2').remove();
+        t1=document.getElementById(x).value;
+        if(x.length<8||x.length>20||! /^[0-9a-zA-Z!@#$%^&*]{8,20}$/.test(t1)){
+            $("#2").append( `<p  id="check2" style='color: #b92c28'>只能包含字母数字以及!@#$%^&* 这几个特殊字符组成并且必须为8-20位之间</p> `);
+        }
+    }
+    function checksecpass(x){
+        $('#check3').remove();
+        var y=document.getElementById(x).value
+        if(t1!=y){
+            $('#3').append(  `<p id="check3"  style="color:#b92c28"> 密码不一致</p> `)
+        }
+
+    }
+
+</script>
 </body>
 </html>
