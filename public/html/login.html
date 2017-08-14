@@ -8,17 +8,17 @@
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-    <script src="/js/login.js" ></script>
-    <link href="/css/login.css" rel="stylesheet" type="text/css" />
+    <script src="../js/login.js" ></script>
+    <link href="../css/login.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <!--导航栏-->
 <nav class="navbar navbar-default" role="navigation">
     <div class="container">
         <!--注册和登录按钮-->
-        <ul class="nav navbar-nav navbar-right " >
-            <li><a href="/html/signIn.html"><span class="glyphicon glyphicon-user"></span>注册</a></li>
-            <li><a href="/html/login.html"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+        <ul class="nav navbar-nav navbar-right " id="logAcount">
+            <li><a href="/html/signIn.html"><span class="glyphicon glyphicon-user"></span> REGISTER</a></li>
+            <li><a href="/html/login.html"><span class="glyphicon glyphicon-log-in"></span> SIGN IN</a></li>
         </ul>
         <!---->
         <!--当页面宽度变小后，导航栏收拢变成三条小杠，点击可以打开导航栏-->
@@ -55,14 +55,14 @@
     <!---->
     <br>
     <!--password输入框-->
-    <div class="input-group input-login">
-        <input type="text" class="form-control input-login " id="loginPassword" placeholder="Password">
+    <div class="input-group input-login" id="passwordInput">
+        <input type="password" class="form-control input-login " id="loginPassword" placeholder="Password">
         <span class="input-group-addon input-group-addon-icon"><span class="glyphicon glyphicon-lock glyphicon-icon"></span></span>
     </div>
     <!---->
     <br>
     <!--记住密码选项-->
-    <input type="checkbox" id="rememberPassword">  remember password&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span><a href="#" id="loginForgetPassword">forget password?</a></span>
+    <input type="checkbox" id="rememberPassword">  remember password&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span><a href="/html/forget.html" id="loginForgetPassword">forget password?</a></span>
     <!---->
     <br>
     <br>
