@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     $("#login").on('click',function () {
         let email=$("#loginEmail").val();
         let password=$("#loginPassword").val();
