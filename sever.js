@@ -3,8 +3,8 @@ let express =require('express');
 let orm=require('orm');
 let bodyparser=require("body-parser");
 let app = express();
-let uuid= require("node-uuid");
-let mailer=require("./mailer")
+let multer = require('multer');
+let upload = multer();
 app.use(bodyparser.urlencoded({extended:true}));
 app.use(express.static('public'));
 app.use(orm.express("sqlite:public/CodingGirlsClub.db",{
@@ -33,10 +33,7 @@ app.use(orm.express("sqlite:public/CodingGirlsClub.db",{
             usrEmail:{type:'text'},
             usrCompanyName:{type:'text'},
             usrCompanyAddress:{type:'text'},
-            usrCompanyProfession:{type:'text'},
-            code:{type:'text'},
-            date:{type:'number'},
-            islive:{type:'number'}
+            usrCompanyProfession:{type:'text'}
         });
         next();
     }
@@ -48,9 +45,7 @@ app.use(orm.express("sqlite:public/CodingGirlsClub.db",{
 app.get('/',function (req,res) {
     res.sendFile(__dirname+"/public/html/home.html")
 });
-
 //1.GET 获得所有职位或者筛选过的职位（返回一个职位JOSN对象数组）（注意，数组转化为JOSN对象，而不是数组里的职位对象转化为JOSON对象放入数组，下同）
-
 app.get("/positions",function(req,res){
     let getCategory = req.query.category;
     let getJobType = req.query.jobType;
@@ -79,19 +74,18 @@ app.get("/positions",function(req,res){
 app.get("/positions/search",function(req,res){
     let getRequire = req.query.homeSearch;
     if(getRequire!=null){
-
-        req.models.Position.find({or:[{title: orm.like("%"+getRequire+"%")},{company: orm.like("%"+getRequire+"%")},
-            {category: orm.like("%"+getRequire+"%")},{city: orm.like("%"+getRequire+"%")},{country: orm.like("%"+getRequire+"%")},
-            {tags: orm.like("%"+getRequire+"%")},
-            {jobType: orm.like("%"+getRequire+"%")}]},function (err,positions) {
+        req.models.Position.find({or:[{title: getRequire},{company: getRequire},
+            {category: getRequire},{city: getRequire},{country: getRequire},
+            {tags: getRequire},{id: getRequire},
+            {jobType: getRequire}]},function (err,positions) {
             res.json(positions);
-            //console.log(positions[0].id);
+            console.log(positions[0].id);
         });
     }
     else{
         req.models.Position.find(null,function (err,positions) {
             res.json(positions);
-            //console.log(positions[0].id);
+            console.log(positions[0].id);
         });
     }
 });
@@ -114,78 +108,52 @@ app.get("/users/:emailId",function (req,res) {
     var getInfo = req.params.emailId;
     if(getInfo===''){
         req.models.User.find(null,function (err,usr) {
-            //res.json(usr);
+            res.json(usr);
         })
     }
     else{
         req.models.User.find({usrEmail:getInfo},function (err,usr) {
-            res.json(usr[0]);
+            res.json(usr);
         })
     }
 });
 //5.POST  注册一个新用户(接收一个用户JSON对像)
 app.post("/users",function (req,res) {
-
     var newRecord={};
     var countx=0;
-    var codes = uuid.v4();
-
-    newRecord.code=codes;
-    console.log(codes);
-    newRecord.islive=0;
-    newRecord.date=Date.now()+3600000 *24;
-    newRecord.usrPassword=req.body.signConfirmPassword;
-    newRecord.usrEmail=req.body.signEmail;
-    console.log(newRecord.usrEmail);
     req.models.User.count(null,function(err,edcount){
-        console.log(1);
         countx=edcount;
         console.log(edcount);
         newRecord.id=countx+1;
-
-
-        mailer({
-                to:  newRecord.usrEmail,
-                subject:'激活帐号',
-                text: `点击激活：<a href="http://localhost:8081/checkCode?mail=`+newRecord.usrEmail+`&code=`+newRecord.code//接收激活请求的链接
-
-            }
-        )
-        req.models.User.find({usrEmail:newRecord.usrEmail}, function (err, user) {
-            let flag=1;
-            if(user.length!=0)
-            {
-                for(var i=0;i<user.length;i++){
-                    if(user[i].islive==1){
-                        flag=0;
-                        res.send("邮箱已经被使用");
-                    }
-                }
-            }
-
-            req.models.User.create(newRecord, function (err, re) {
-                if (err) return re.status(500).json({error: err});
-                console.log("ok");
-            })
+        newRecord.usrPassword=req.body.signConfirmPassword;
+        req.models.User.create(newRecord,function(err,re){
+            if(err)  return res.status(500).json({error:err});
+            console.log("ok");
         })
+
     })
 
+
 });
-//6.POST 一个用户完善自己的信息。修改一个用户的用户信息(接受一个用户JSON对象)
-app.post('/users/:emailId',function(req,res){
-    let email = req.params.emailId;
-    req.models.User.find({usrEmail: email }, function (err, user) {
-        // console.log("People found: %d", user.length);
-        user[0].usrPassword= req.body.usrPassword;
-        user[0].usrCompanyName= req.body.usrCompanyName;
-        user[0].usrCompanyAddress= req.body.usrCompanyAddress;
-        user[0].usrCompanyProfession= req.body.usrCompanyProfession;
+//6.PUT 修改一个用户的用户信息(接受一个用户JSON对象)
+app.put("/users/:emailID",function (req,res) {
+
+
+    req.models.User.find({usrEmail:req.params.emailID},function (err,user) {
+        if(err) return res.status(500).json({error:err.message})
+
+        user[0].usrpassword=req.body.detailPassword;
+        user[0].CompanyName=req.body.detailCompanyName;
+        user[0].usrCompanyAddress=req.body.detailCompanyAddress;
+        user[0].usrCompanyProfession=req.body.detailCompanyProfession;
+
         user[0].save(function (err) {
-            // err.msg = "under-age";
-        });
-        res.json(user);
-    });
-})
+            if(err) return res.status(500).json({error:err.message})
+            res.json({message:"用户更新成功"})
+
+        })
+    })
+});
 //7.GET 获得一个用户创建的已发表职位（返回一个职位JOSN对象数组）
 app.get('/usrs/:emailId/positions/public',function(req,res){
     let email = req.params.emailId;
@@ -196,7 +164,6 @@ app.get('/usrs/:emailId/positions/public',function(req,res){
         res.json(position);
     })
 });
-
 //8.GET 获得一个用户创建的未发表职位（返回一个职位JOSN对象数组）
 app.get('/usrs/:emailId/positions/hidden',function(req,res){
     let email = req.params.emailId;
@@ -207,9 +174,8 @@ app.get('/usrs/:emailId/positions/hidden',function(req,res){
         res.json(position);
     })
 });
-
 //9.POST 一个用户新建一个职位。（接收一个职位JOSN对象）
-app.post("/usrs/:emailId/positions",function(req,res){
+app.post("/usrs/:emailId/positions",upload.single(),function(req,res){ //FormData传递参数upload.single()
     let email = req.params.emailId;
     req.models.Position.count(null,function(err,count){
         console.log(count);
@@ -226,19 +192,20 @@ app.post("/usrs/:emailId/positions",function(req,res){
             city: req.body.editCity,
             country: req.body.editCountry,
             condition: 'hidden',
-            owner: email
+            owner: email,
+            publishTime:req.body.publishTime,
+            invalidTime:req.body.invalidTime
         },function(err,reply){
             if(err){
                 console.log(err)
             }else{
                 console.log('添加成功');
+                res.send(`创建成功emailId=${email}&Id=${count+1001}`);
             }
-
         });
     });
 });
 //10.PUT 一个用户修改‪一个职位的信息（接收一个职位JOSN对象）
-
 app.put('/usrs/:emailId/positions/:id',function (req,res) {
     //检测数据是否取到
     let email=req.params.emailId;
@@ -271,17 +238,17 @@ app.put('/usrs/:emailId/positions/:id',function (req,res) {
             console.log(JSON.stringify(newRecord));
             console.log("修改成功");
         });
+        res.send("hahah")
         //测试用例
         // req.models.Position.find({id:1001},function (err,ans) {
         //     console.log(JSON.stringify(ans));
         // })
     });
 });
-
 //11.GET 一个用户获得‪一个职位的信息（返回一个职位JOSN对象）
-app.get('/usrs/:emailId/positions/:id',function (req,res) {
-    let email=req.params.emailId;
-    let positionId=req.params.id;
+app.get('/usrs/workDetail',function (req,res) {
+    let email=req.query.emailId;
+    let positionId=req.query.Id;
     console.log(email);
     console.log(positionId);
     req.models.Position.find({owner:email,id:positionId},function (err,position) {
@@ -289,74 +256,56 @@ app.get('/usrs/:emailId/positions/:id',function (req,res) {
         res.json(position);
     })
 });
-//12.增加了一个验证激活码的api
-app.get('/checkCode', function (req, res){
-    var usermail = req.query.mail;
-   var code = req.query.code;
-   //var outdate = req.query.outdate;
-    req.models.User.find({usrEmail:usermail}, function (err, user){
-        for(var i=0;i<user.length;i++) {
-            if (code == user[i].code && user[i].islive == 0 && (user[i].date - Date.now()) > 0) {
 
-                console.log(1);
-                user[i].islive = 1;
-                user[i].save(function (err) {
-                    if (err) {
-                        console.log("失败")
-
-                    } else {
-                        res.send('激活成功请登录！')
-                        };
-
-
-                });
-            }
-        }
-    });
-
+app.get("/users/workDetail/publishCondition",function (req,res) {
+    req.models.Position.find({id:req.query.Id},function (err,position) {
+        if(err) return res.status(500).json({error:err.message});
+        res.send(position[0].condition);
+    })
 });
 
+app.get("/users/workDetail/publish",function (req,res) {
 
-//13.修改密码发送邮件
-app.post("/change_pass",function(req,res){
-    req.models.User.find({usrEmail:req.body.signEmail},function(err,user){
-        var flag=1;
-        if(user.length==0) flag=0;
-        var i=0;
-        for(;i<user.length;i++){
-            if(user[i].islive==1){
-                break;
-            }
-        }
-        if(i>=user.length) flag==0;
-        if(flag==0) res.send("false");
-        if(flag==1){
-            mailer({
-                    to:  req.body.signEmail,
-                    subject:'重置密码',
-                    text: `点击重置：<a href="http://localhost:8081/resetpass?mail=`+req.body.signEmail+`&password=`+req.body.signPassword//接收激活请求的链接
+    req.models.Position.find({id:req.query.Id},function (err,position) {
+        if(err) return res.status(500).json({error:err.message});
 
-                }
-            )
-        }
+        position[0].condition = "public";
 
-    })
-})
-//14.修改密码
-app.get('/resetpass', function (req, res){
-    var usermail = req.query.mail;
-    var secpass = req.query.password;
-    //var outdate = req.query.outdate;
-    req.models.User.find({usrEmail:usermail}, function (err, user){
-        user[0].usrPassword=secpass;
-        user[0].save(function (err) {
-            if(err) return res.status(500).json({error:err.message})
-            res.alert({message:"用户密码更新成功"})
-
+        position[0].save(function (err) {
+            if(err) return res.status(500).json({error:err.message});
+            res.send("职位发布成功！");
         })
+    })
+});
+
+//14.PUT 一个用户修改‪一个职位的信息（接收一个职位JOSN对象）post版本
+app.post('/usrs/positions/edit',upload.single(),function (req,res) {
+    //检测数据是否取到
+    let email=req.query.emailId;
+    let positionId=req.query.Id;
+    console.log(email);
+    console.log(positionId);
+    req.models.Position.find({owner:email,id:positionId},function (err,position){
+        position[0].title=req.body.title;
+        position[0].company=req.body.company;
+        position[0].description=req.body.description;
+        position[0].applyMethod=req.body.applyMethod;
+        position[0].expiryDate=req.body.expiryDate;
+        position[0].category=req.body.category;
+        position[0].jobType=req.body.jobType;
+        position[0].tags=req.body.tags;
+        position[0].city=req.body.city;
+        position[0].country=req.body.country;
+        position[0].save(function (err) {
+
+        });
+        res.json(position);
+        //测试用例
+        // req.models.Position.find({id:1001},function (err,ans) {
+        //     console.log(JSON.stringify(ans));
+        // })
 
     });
-
 });
 
 //服务器

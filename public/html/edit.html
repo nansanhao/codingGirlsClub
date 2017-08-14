@@ -8,8 +8,8 @@
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-    <script src="../js/edit.js" ></script>
-    <link href="../css/edit.css" rel="stylesheet" type="text/css" />
+    <script src="/js/edit.js" ></script>
+    <link href="/css/edit.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <!--导航栏-->
@@ -46,6 +46,94 @@
     </div>
 </nav>
 <!---->
-<p>edit</p>
+<form id="form1">
+    <!--newRecord.id=req.body.id;-->
+    <!--newRecord.title=req.body.title;-->
+    <!--newRecord.company=req.body.company;-->
+    <!--newRecord.description=req.body.description;-->
+    <!--newRecord.applyMethod=req.body.applyMethod;-->
+    <!--newRecord.expiryDate=req.body.expiryDate;-->
+    <!--newRecord.category=req.body.category;-->
+    <!--newRecord.jobType=req.body.jobType;-->
+    <!--newRecord.tags=req.body.tags;-->
+    <!--newRecord.city=req.body.city;-->
+    <!--newRecord.country=req.body.country;-->
+    <!--newRecord.condition=req.body.condition;-->
+    <!--newRecord.owner=req.body.owner;-->
+    <!--newRecord.publishTime=req.body.publishTime;-->
+    <!--newRecord.invalidTime=req.body.invalidTime;-->
+    <input type="text" name="title" id="postTitle">postTitle<br>
+    <input type="text" name="company" id="postCompany">postCompany<br>
+    <input type="text" name="description" id="postDescription">postDescription<br>
+    <input type="text" name="applyMethod" id="postApply">postApply<br>
+    <input type="text" name="expiryDate" id="postDate">postDate<br>
+    <input type="text" name="category" id="postCategory">postCategory<br>
+    <input type="text" name="jobType" id="postType">postType<br>
+    <input type="text" name="tags" id="postTags">postTags<br>
+    <input type="text" name="city" id="postCity">postCity<br>
+    <input type="text" name="country" id="postCountry">postCountry<br>
+    <button type="submit" id="postAddPosition">submit</button>
+</form>
+<script>
+    window.onload=function () {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if ((xhr.status >= 200 && xhr.status < 300) || xhr === 304) {
+                    var response = xhr.responseText;
+                    var responseJson = JSON.parse(response);
+                    var responseObj = responseJson[0];
+                    var form = document.getElementById("form1");
+                    form.elements[0].value = responseObj.title;
+                    form.elements[1].value = responseObj.company;
+                    form.elements[2].value = responseObj.description;
+                    form.elements[3].value = responseObj.applyMethod;
+                    form.elements[4].value = responseObj.expiryDate;
+                    form.elements[5].value = responseObj.category;
+                    form.elements[6].value = responseObj.jobType;
+                    form.elements[7].value = responseObj.tags;
+                    form.elements[8].value = responseObj.city;
+                    form.elements[9].value = responseObj.country;
+//                    newRecord.expiryDate=req.body.expiryDate;
+//                    newRecord.category=req.body.category;
+//                    newRecord.jobType=req.body.jobType;
+//                    newRecord.tags=req.body.tags;
+//                    newRecord.city=req.body.city;
+//                    newRecord.country=req.body.country;
+//                    newRecord.condition=req.body.condition;
+//                    newRecord.owner=req.body.owner;
+                }
+                else {
+                    alert("error");
+                }
+            }
+        };
+        var urlArr = document.URL.split('?');
+        xhr.open("get",`/usrs/workDetail?${urlArr[1]}`,true);
+        xhr.send(null);
+        submit();
+    };
+    function submit() {
+        var form1 = document.getElementById("form1");
+        var submit = document.getElementById("postAddPosition");
+        submit.addEventListener("click",function(event){
+            event.preventDefault();
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if(xhr.readyState===4){
+                    if(xhr.status>=200&&xhr.status<300||xhr.status===304){
+                        alert("修改成功！");
+                        var urlArr = document.URL.split('?');
+                        window.location = `workDetail.html?${urlArr[1]}`
+                    }
+                }
+            }
+            var urlArr = document.URL.split('?');
+            xhr.open("post",`/usrs/positions/edit?${urlArr[1]}`,true);
+            var formData = new FormData(form1);
+            xhr.send(formData);
+        })
+    }
+</script>
 </body>
 </html>
