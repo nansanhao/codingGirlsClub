@@ -109,12 +109,12 @@ app.get("/users/:emailId",function (req,res) {
     var getInfo = req.params.emailId;
     if(getInfo===''){
         req.models.User.find(null,function (err,usr) {
-            res.json(usr);
+            //res.json(usr);
         })
     }
     else{
         req.models.User.find({usrEmail:getInfo},function (err,usr) {
-            res.json(usr);
+            res.json(usr[0]);
         })
     }
 });
