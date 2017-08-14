@@ -8,8 +8,8 @@
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-    <script src="../js/workDetail.js" ></script>
-    <link href="../css/workDetail.css" rel="stylesheet" type="text/css" />
+    <script src="/js/workDetail.js" ></script>
+    <link href="/css/workDetail.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <!--导航栏-->
@@ -46,6 +46,105 @@
     </div>
 </nav>
 <!---->
-workDetail
+<form id="form1">
+    <input type="text" id="title" readonly="readonly">title<br>
+    <input type="text" id="company" readonly="readonly">company<br>
+    <input type="text" id="description" readonly="readonly">description<br>
+    <input type="text" id="tags" readonly="readonly">tags<br>
+    <input type="text" id="apply" readonly="readonly">apply<br>
+    <button id="publish">publish</button>
+    <button id="edit">edit</button>
+</form>
+<script>
+    window.onload=function () {
+        judgePublish();
+        publish();
+        edit();
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if ((xhr.status >= 200 && xhr.status < 300) || xhr === 304) {
+                    var response = xhr.responseText;
+                    var responseJson = JSON.parse(response);
+                    var responseObj = responseJson[0];
+                    var form = document.getElementById("form1");
+                    form.elements[0].value = responseObj.title;
+                    form.elements[1].value = responseObj.company;
+                    form.elements[2].value = responseObj.description;
+                    form.elements[3].value = responseObj.tags;
+                    form.elements[4].value = responseObj.applyMethod;
+                }
+                else {
+                    alert("error");
+                }
+            }
+        };
+        var urlArr = document.URL.split('?');
+//        alert(urlArr);
+//        var value = urlArr[1].split("&");
+//        alert(value);
+//        var emailId = value[0].split("=")[1];
+//        var Id = value[1].split("=")[1];
+//        var url = `http://127.0.0.1:8081/usrs/${emailId}/positions/${Id}`;
+        xhr.open("get",`/usrs/workDetail?${urlArr[1]}`,true);
+        xhr.send(null);
+    };
+    function publish() {
+        var publish = document.getElementById("publish");
+        var edit = document.getElementById("edit");
+        publish.addEventListener("click",function (event) {
+            event.preventDefault();
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if(xhr.readyState===4){
+                    if(xhr.status>=200&&xhr.status<300||xhr===304){
+                        alert(xhr.responseText);
+                        publish.style.display = "none";
+                    }
+                }
+            };
+            var urlArr = document.URL.split('?');
+            xhr.open("get",`/users/workDetail/publish?${urlArr[1]}`,true);
+            xhr.send(null);
+        })
+    }
+
+    function judgePublish() {
+        var publish = document.getElementById("publish");
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if(xhr.readyState===4){
+                if(xhr.status>=200&&xhr.status<300||xhr===304){
+                    var response = xhr.responseText;
+                    if(response==="public"){
+                        publish.style.display = "none";
+                    } else {
+                        publish.style.display = "inherit";
+                    }
+                }
+            }
+        };
+        var urlArr = document.URL.split('?');
+        xhr.open("get",`/users/workDetail/publishCondition?${urlArr[1]}`,true);
+        xhr.send(null);
+    }
+
+    function edit() {
+        var edit = document.getElementById("edit");
+        edit.addEventListener("click",function(event){
+            event.preventDefault();
+            var urlArr = document.URL.split('?');
+            window.location.href = `edit.html?${urlArr[1]}`;
+        })
+    }
+</script>
 </body>
+
+<!--* title：**id=title**-->
+<!--* company：**id=company**-->
+<!--* description：**id=description**(支持简单的富文本编辑；如果能再同时支持markdown，会有加分)-->
+<!--* tags：**id =tags**-->
+<!--* how to apply：**id=apply**(支持简单的富文本编辑；如果能再同时支持markdown，会有加分)-->
+<!--* **id=publish**（有一个发布的按钮）-->
+<!--* **id=edit**（有一个编辑的按钮）-->
 </html>

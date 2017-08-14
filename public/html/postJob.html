@@ -17,8 +17,8 @@
     <div class="container">
         <!--注册和登录按钮-->
         <ul class="nav navbar-nav navbar-right " id="logAcount">
-            <li><a href="/html/signIn.html"><span class="glyphicon glyphicon-user"></span> REGISTER</a></li>
-            <li><a href="/html/login.html"><span class="glyphicon glyphicon-log-in"></span> SIGN IN</a></li>
+            <li><a href="signIn.html"><span class="glyphicon glyphicon-user"></span> REGISTER</a></li>
+            <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> SIGN IN</a></li>
         </ul>
         <!---->
         <!--当页面宽度变小后，导航栏收拢变成三条小杠，点击可以打开导航栏-->
@@ -30,22 +30,88 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/html/home.html">CodingGirlsClub</a>
+            <a class="navbar-brand" href="./home.html">CodingGirlsClub</a>
         </div>
         <!---->
         <!--导航栏上的选项-->
         <div class="collapse navbar-collapse" id="example-navbar-collapse">
             <ul class="nav navbar-nav">
-                <li ><a href="/html/home.html">ALL JOBS</a></li>
-                <li><a href="/html/postJob.html">POST A JOB</a></li>
-                <li><a href="/html/myPost.html">MY POST</a></li>
-                <li><a href="/html/accountDetail.html">ACCOUNT</a></li>
+                <li ><a href="html/home.html">ALL JOBS</a></li>
+                <li><a href="html/postJob.html">POST A JOB</a></li>
+                <li><a href="html/myPost.html">MY POST</a></li>
+                <li><a href="html/accountDetail.html">ACCOUNT</a></li>
             </ul>
         </div>
         <!---->
     </div>
 </nav>
 <!---->
-<p>Post A Job</p>
+<form id="form1">
+    <input type="text" name="editTitle" id="postTitle">postTitle<br>
+    <input type="text" name="editCompany" id="postCompany">postCompany<br>
+    <input type="text" name="editDescription" id="postDescription">postDescription<br>
+    <input type="text" name="editApply" id="postApply">postApply<br>
+    <input type="text" name="editDate" id="postDate">postDate<br>
+    <input type="text" name="editCategory" id="postCategory">postCategory<br>
+    <input type="text" name="editType" id="postType">postType<br>
+    <input type="text" name="editTags" id="postTags">postTags<br>
+    <input type="text" name="editCity" id="postCity">postCity<br>
+    <input type="text" name="editCountry" id="postCountry">postCountry<br>
+    <button type="submit" id="postAddPosition">submit</button>
+</form>
 </body>
+<script>
+    window.onload = function () {
+        var form1 = document.getElementById("form1");
+        form1.addEventListener("submit",function (event) {
+            event.preventDefault();
+            sendMessage();
+        });
+        function sendMessage() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if(xhr.readyState === 4){
+                    if((xhr.status>=200&&xhr.status<300)||xhr===304){
+                        var response = xhr.responseText;
+                        var warn = response.slice(0,4);
+                        var email = response.slice(4);
+                        alert(warn);
+                        window.location.href=`workDetail.html?${email}`;
+                    }
+                    else {
+                        alert("error");
+                    }
+                }
+            };
+            xhr.open("post","/usrs/2491572953@qq.com/positions",true);
+            var formData = new FormData(form1);//不需要头部请求,但是要新建FormData对象
+
+            var date = new Date();
+            var publishArr = [];
+            publishArr.push(date.getFullYear());
+            publishArr.push(date.getMonth());
+            publishArr.push(date.getDate());
+            publishStr = publishArr .join(".");
+            var invalidArr = publishArr;
+            invalidArr[1]++;
+            invalidStr = invalidArr.join(".");
+
+            formData.append("publishTime",publishStr);
+            formData.append("invalidTime",invalidArr);
+
+            xhr.send(formData);
+        }
+    }
+</script>
+<!--* title：**id=postTitle**（必填项）-->
+<!--*  company：**id=postCompany**（必填项）-->
+<!--* description：**id=postDescription**(必填项，支持简单的富文本)-->
+<!--* how to apply：**id=postApply**（必填项）-->
+<!--* expiry date：**id =postDate**(必填项，下拉框)-->
+<!--* category：**id= postCategory**(必填项，下拉框)-->
+<!--* job type：**id=postType**(必填项，下拉框)-->
+<!--* tags：**id=postTags**(非必填)-->
+<!--* city：**id=postCity**(必填项，输入框)-->
+<!--* country：**id=postCountry**(必填项，下拉框，默认China)-->
+<!--* **id=postAddPosition** (有一个创建工作的按钮)-->
 </html>
