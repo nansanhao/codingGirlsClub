@@ -1,6 +1,19 @@
+
+window.onload=function () {
+    if(sessionStorage.getItem("emailId")){
+        let emailId = sessionStorage.getItem("emailId");
+        $("#logAcount").empty();
+        let str=`<li><a href="/html/accountDetail.html"><span class="glyphicon glyphicon-user"></span> ${emailId}</a></li>`;
+        str+=`<li><a href="" id="LOGOUT"><span class="glyphicon glyphicon-log-out"></span> EXIT</a></li>`
+        $("#logAcount").append(str);
+    }
+}
+
+
 //每页职位的个数（全局变量）
 let pagePositionNum=6;
 $(document).ready(function () {
+
     //页面初始化
     $.get('/positions',function (ans) {
         let positions=cutPage(ans,pagePositionNum);
@@ -92,6 +105,16 @@ $(document).ready(function () {
     //分页功能
     $(document).click(function(e) {
         $.get(`/positions/search?homeSearch=${$("#homeSearch").val()}`,function (ans) {
+            //退出功能
+            if(/LOGOUT/.test($(e.target).attr("id"))==true){
+                sessionStorage.clear();
+                $("#logAcount").empty();
+                let str=`<ul class="nav navbar-nav navbar-right " id="logAcount">
+            <li><a href="/html/signIn.html"><span class="glyphicon glyphicon-user"></span> REGISTER</a></li>
+            <li><a href="/html/login.html"><span class="glyphicon glyphicon-log-in"></span> SIGN IN</a></li>
+        </ul>`
+                $("#logAcount").append(str);
+            }
             if(/pageBtn/.test($(e.target).attr("id"))==true){
                 //alert(JSON.stringify(ans));
                 //筛选框的判定
@@ -139,7 +162,7 @@ function addPagination(page, positions) {
                     pageStr+=`<li><a href="#" id="pageBtn${i+1}">${i+1}</a></li>`
                 }
             }
-            pageStr+=`<li class="disabled"><a href="#" id="pageBtn${Number(page)+1}">&raquo;</a></li></ul>`;
+            pageStr+=`<li class="disabled"><a href="#" >&raquo;</a></li></ul>`;
             $("#pagebtn").append(pageStr);
         }else {
             if(page==1){
@@ -177,7 +200,7 @@ function addPagination(page, positions) {
                         pageStr+=`<li><a href="#" id="pageBtn${i+1}">${i+1}</a></li>`
                     }
                 }
-                pageStr+=`<li><a href="#" id="pageBtn${page+1}">&raquo;</a></li></ul>`;
+                pageStr+=`<li><a href="#" id="pageBtn${Number(page)+1}">&raquo;</a></li></ul>`;
                 $("#pagebtn").append(pageStr);
             }
         }

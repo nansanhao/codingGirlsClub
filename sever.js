@@ -2,6 +2,7 @@
 let express =require('express');
 let orm=require('orm');
 let bodyparser=require("body-parser");
+let mailer=require("./mailer");
 let app = express();
 app.use(bodyparser.urlencoded({extended:true}));
 app.use(express.static('public'));
@@ -31,7 +32,10 @@ app.use(orm.express("sqlite:public/CodingGirlsClub.db",{
             usrEmail:{type:'text'},
             usrCompanyName:{type:'text'},
             usrCompanyAddress:{type:'text'},
-            usrCompanyProfession:{type:'text'}
+            usrCompanyProfession:{type:'text'},
+            code:{type:'text'},
+            date:{type:'number'},
+            islive:{type:'number'}
         });
         next();
     }
@@ -107,40 +111,55 @@ app.get("/positions/:id",function (req,res) {
 //4.GET 根据邮箱id获得一个用户（返回一个用户JOSN对象）
 app.get("/users/:emailId",function (req,res) {
     var getInfo = req.params.emailId;
-    if(getInfo===''){
-        req.models.User.find(null,function (err,usr) {
-            res.json(usr);
-        })
-    }
-    else{
         req.models.User.find({usrEmail:getInfo},function (err,usr) {
-            res.json(usr);
+            if(usr.length==0){
+                res.json([]);
+            }else {
+                res.json(usr[0]);
+            }
+
         })
-    }
+
 });
 //5.POST  注册一个新用户(接收一个用户JSON对像)
 app.post("/users",function (req,res) {
     var newRecord={};
     var countx=0;
-    req.models.User.count(null,function(err,edcount){
-        countx=edcount;
+    newRecord.usrPassword = req.body.signConfirmPassword;
+    newRecord.usrEmail = req.body.signEmail;
+    console.log(newRecord.usrEmail);
+    console.log(newRecord.usrPassword);
+    req.models.User.count(null, function (err, edcount) {
+        countx = edcount;
         console.log(edcount);
-        newRecord.id=countx+1;
-        newRecord.usrPassword=req.body.signConfirmPassword;
-        req.models.User.create(newRecord,function(err,re){
-            if(err)  return res.status(500).json({error:err});
-            console.log("ok");
-        })
+        newRecord.id = countx + 1;
 
-    })
-
+        req.models.User.find({usrEmail: newRecord.usrEmail}, function (err, user) {
+            if (user.length == 0) {
+                mailer({
+                    to: newRecord.usrEmail,
+                    subject: '激活帐号',
+                    text: `点击激活：<a href="http://127.0.0.1:8081/checkCode?mail=${newRecord.usrEmail}&psw=${newRecord.usrPassword}&id=${newRecord.id}
+                     您还可以回到主页:<a href="http://127.0.0.1:8081`//接收激活请求的链接
+                })
+                res.send("ok")
+                console.log("ok")
+            }
+            else {
+                console.log("该邮箱已存在");
+                res.send("该邮箱已存在");
+            }
+        });
+    });
 });
 //6.POST 一个用户完善自己的信息。修改一个用户的用户信息(接受一个用户JSON对象)
 app.post('/users/:emailId',function(req,res){
     let email = req.params.emailId;
     req.models.User.find({usrEmail: email }, function (err, user) {
         // console.log("People found: %d", user.length);
-        user[0].usrPassword= req.body.usrPassword;
+        if(req.body.usrPassword!=''){
+            user[0].usrPassword= req.body.usrPassword;
+        }
         user[0].usrCompanyName= req.body.usrCompanyName;
         user[0].usrCompanyAddress= req.body.usrCompanyAddress;
         user[0].usrCompanyProfession= req.body.usrCompanyProfession;
@@ -160,6 +179,13 @@ app.get('/usrs/:emailId/positions/public',function(req,res){
         res.json(position);
     })
 });
+app.get('/usrs/:emailId/positions',function (req,res) {
+    let email = req.params.emailId;
+    req.models.Position.find({owner:email},function(err,position){
+        console.log(JSON.stringify(position));
+        res.json(position);
+    })
+})
 
 //8.GET 获得一个用户创建的未发表职位（返回一个职位JOSN对象数组）
 app.get('/usrs/:emailId/positions/hidden',function(req,res){
@@ -252,6 +278,89 @@ app.get('/usrs/:emailId/positions/:id',function (req,res) {
         console.log(JSON.stringify(position));
         res.json(position);
     })
+});
+//12.增加了一个验证激活码的api
+app.get('/checkCode', function (req, res){
+    var usermail = req.query.mail;
+   var code = req.query.code;
+   //var outdate = req.query.outdate;
+    req.models.User.find({usrEmail:usermail}, function (err, user){
+        for(var i=0;i<user.length;i++) {
+            if (code == user[i].code && user[i].islive == 0 && (user[i].date - Date.now()) > 0) {
+
+                console.log(1);
+                user[i].islive = 1;
+                user[i].save(function (err) {
+                    if (err) {
+                        console.log("失败")
+
+                    } else {
+                        res.send('激活成功请登录！')
+                        };
+
+
+                });
+            }
+        }
+    });
+
+});
+
+
+//13.修改密码发送邮件
+app.post("/change_pass",function(req,res){
+    req.models.User.find({usrEmail:req.body.signEmail},function(err,user){
+        var flag=1;
+        if(user.length==0) flag=0;
+        var i=0;
+        for(;i<user.length;i++){
+            if(user[i].islive==1){
+                break;
+            }
+        }
+        if(i>=user.length) flag==0;
+        if(flag==0) res.send("false");
+        if(flag==1){
+            mailer({
+                    to:  req.body.signEmail,
+                    subject:'重置密码',
+                    text: `点击重置：<a href="http://localhost:8081/resetpass?mail=`+req.body.signEmail+`&password=`+req.body.signPassword//接收激活请求的链接
+
+                }
+            )
+        }
+
+    })
+})
+//14.修改密码
+app.get('/resetpass', function (req, res){
+    var usermail = req.query.mail;
+    var secpass = req.query.password;
+    //var outdate = req.query.outdate;
+    req.models.User.find({usrEmail:usermail}, function (err, user){
+        user[0].usrPassword=secpass;
+        user[0].save(function (err) {
+            if(err) return res.status(500).json({error:err.message})
+            res.alert({message:"用户密码更新成功"})
+
+        })
+
+    });
+
+});
+
+app.get('/checkCode', function (req, res) {
+    var usermail = req.query.mail;
+    var psw = req.query.psw;
+    var id = req.query.id;
+    var newRecord = {};
+    newRecord.id = id;
+    newRecord.usrEmail = usermail;
+    newRecord.usrPassword = psw;
+    req.models.User.create(newRecord, function (err, user) {
+        console.log(user);
+        res.send("恭喜你，注册成功！\n您还可以回到主页:<a href=http://127.0.0.1:8081");
+    });
 });
 //服务器
 var server = app.listen(8081, function () {

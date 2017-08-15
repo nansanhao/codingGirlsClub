@@ -46,6 +46,22 @@
     </div>
 </nav>
 <!---->
+<div  style="width: 100%;height: 160px;background-color: #209b60;margin-top: -20px ;padding: 40px">
+    <div class="container">
+        <div class="col-sm-6" >
+            <h1 style="color: white">REGISTER</h1>
+        </div>
+        <div class="col-sm-6 text-right"  >
+            <ol class="breadcrumb" >
+                <li>
+                    <a href="/html/home.html" >Home</a>
+                </li>
+                <li style="color: white">register</li>
+            </ol>
+        </div>
+    </div>
+</div>
+<p id="test" type="text" style="text-align: center;width:100%; position: absolute ;"></p>
 <div class="container">
     <!--&lt;!&ndash;用户名输入框&ndash;&gt;-->
     <!--<div class="input-group input-login">-->
@@ -55,32 +71,90 @@
     <!--&lt;!&ndash;&ndash;&gt;-->
     <br>
     <!--邮件地址输入框-->
-    <div class="input-group input-login">
-        <input type="text" class="form-control input-login"  placeholder="Email" id="signEmail">
+
+    <div class="input-group input-login" style="margin: 100px auto 0 auto" id="d1">
+        <input type="email" class="form-control input-login"  placeholder="Email" id="signEmail" name="signEmail" onkeyup="checkmail(this.id)">
+
         <span class="input-group-addon input-group-addon-icon"><span class="glyphicon glyphicon-envelope glyphicon-icon"></span></span>
     </div>
     <!---->
     <br>
     <!--密码输入框-->
-    <div class="input-group input-login" >
-        <input type="text" class="form-control input-login " placeholder="Password" id="signPassword">
+
+    <div class="input-group input-login" style="margin: 40px auto 0 auto" id="d2">
+        <input type="password" class="form-control input-login " placeholder="Password" id="signPassword" name="signPassword" onkeyup="checkpass(this.id)">
+
         <span class="input-group-addon input-group-addon-icon"><span class="glyphicon glyphicon-lock glyphicon-icon"></span></span>
     </div>
     <!---->
     <br>
     <!--确认密码输入框-->
-    <div class="input-group input-login">
-        <input type="text" class="form-control input-login " placeholder="Repeat Password" id="signConfirmPassword">
+
+    <div class="input-group input-login" style="margin: 40px auto 0 auto" id="d3">
+        <input type="password" class="form-control input-login " placeholder="Repeat Password" id="signConfirmPassword" name="signConfirmPassword" onkeyup="checksecpass(this.id)">
+
         <span class="input-group-addon input-group-addon-icon"><span class="glyphicon glyphicon-lock glyphicon-icon"></span></span>
     </div>
     <!---->
     <br>
     <!--注册按钮-->
-    <div class="bs-example">
-        <button type="button" class="btn btn-primary"  id="signIn">REGISTER</button>
+
+    <div class="bs-example" style="width: 500px; margin: 20px auto 0 auto">
+        <button type="button" class="btn btn-primary"  id="signIn" style="width: 476px;height: 50px">REGISTER</button>
+
     </div>
     <!---->
 
 </div>
+<script type="text/javascript">
+    var t1;
+
+    function checkmail(x)
+    {
+        $('#check1').remove();
+        var y=document.getElementById(x).value
+
+        if(!/[@]{1}/.test(y)){
+            $('#test').empty()
+            let str = "<div class='alert alert-danger alert-dismissible' role='alert' style='font-size: 20px'>"+
+                "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"+
+                "<span aria-hidden='true'>&times;</span>"+"</button>"+" WARNING&nbsp;!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please enter the correct mailbox </div>";
+            $('#test').append(str);
+        }else {
+            $('#test').empty()
+        }
+
+    }
+    function checkpass(x)
+    {
+        $('#check2').remove();
+        t1=document.getElementById(x).value;
+        if(x.length<8||x.length>20||! /^[0-9a-zA-Z!@#$%^&*]{8,20}$/.test(t1)){
+
+            $('#test').empty();
+            let str = "<div class='alert alert-info alert-dismissible' role='alert' style='font-size: 20px'>"+
+                "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"+
+                "<span aria-hidden='true'>&times;</span>"+"</button>"+" ATTENTION&nbsp;!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contains only letters, numbers, and must be between 8-20 digits</div>";
+            $('#test').append(str);
+        }else {
+            $('#test').empty()
+        }
+    }
+    function checksecpass(x){
+        $('#check3').remove();
+
+        var y=document.getElementById(x).value;
+        if(t1!=y){
+            $('#test').empty();
+            let str = "<div class='alert alert-danger alert-dismissible' role='alert' style='font-size: 20px'>"+
+                "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"+
+                "<span aria-hidden='true'>&times;</span>"+"</button>"+" WARNING&nbsp;!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The password entered for the two time must be consistent</div>";
+            $('#test').append(str);
+        }else {
+            $('#test').empty();
+        }
+    }
+
+</script>
 </body>
 </html>

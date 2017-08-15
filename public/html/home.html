@@ -17,12 +17,13 @@
     <script src="/js/home.js" ></script>
     <link href="/css/home.css" rel="stylesheet" type="text/css" />
 </head>
+
 <body>
 <!--导航栏-->
 <nav class="navbar navbar-default" role="navigation" >
     <div class="container" >
         <!--注册和登录按钮-->
-        <ul class="nav navbar-nav navbar-right " id="logAcount">
+        <ul class="nav navbar-nav navbar-right " id="logAcount" >
             <li><a href="/html/signIn.html"><span class="glyphicon glyphicon-user"></span> REGISTER</a></li>
             <li><a href="/html/login.html"><span class="glyphicon glyphicon-log-in"></span> SIGN IN</a></li>
         </ul>
@@ -52,15 +53,38 @@
     </div>
 </nav>
 <!---->
+<div  style="width: 100%;height: 160px;background-color: #209b60;margin-top: -20px ;padding: 40px">
+    <div class="container">
+        <div class="col-sm-1" >
+            <h1 style="color: white">JOB</h1>
+        </div>
+        <div class="col-sm-5" >
+            <!--搜索框-->
+            <div class="input-group input-login" style="margin-top: 16px">
+                <input type="text" class="form-control input-login" placeholder="Search Position" id="homeSearch">
+                <span class="input-group-addon input-group-addon-icon" ><a id="homeSearchBtn"><span class="glyphicon glyphicon-search glyphicon-icon" ></span></a></span>
+            </div>
+            <!---->
+        </div>
+        <div class="col-sm-6 text-right"  >
+            <ol class="breadcrumb" >
+                <li>
+                    <a href="/html/home.html" >Home</a>
+                </li>
+                <li style="color: white">Jobs</li>
+            </ol>
+        </div>
+    </div>
+</div>
 <!--搜索框-->
 <div class="container">
-    <!--搜索框-->
-    <div class="input-group input-login">
-        <input type="text" class="form-control input-login" placeholder="Search Position" id="homeSearch">
-        <span class="input-group-addon input-group-addon-icon" ><a id="homeSearchBtn"><span class="glyphicon glyphicon-search glyphicon-icon" ></span></a></span>
-    </div>
-    <!---->
-    <br><br>
+    <!--&lt;!&ndash;搜索框&ndash;&gt;-->
+    <!--<div class="input-group input-login">-->
+        <!--<input type="text" class="form-control input-login" placeholder="Search Position" id="homeSearch">-->
+        <!--<span class="input-group-addon input-group-addon-icon" ><a id="homeSearchBtn"><span class="glyphicon glyphicon-search glyphicon-icon" ></span></a></span>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;&ndash;&gt;-->
+    <br>
     <!--character筛选框-->
     <select class="selectpicker show-tick" id="characters">
         <option>No Select</option>
@@ -80,7 +104,7 @@
     </select>
     <!---->
 </div>
-<br>
+
 <br>
 <!--position内容按钮-->
 <div class="container" id="showPositions">
