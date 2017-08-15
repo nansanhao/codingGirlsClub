@@ -5,9 +5,9 @@ let bodyparser=require("body-parser");
 //login system requirements
 var session  = require('express-session');
 var cookieParser = require('cookie-parser');
-var morgan = require('morgan');
 var app      = express();
-//var port     = process.env.PORT || 8080;
+var LocalStrategy   = require('passport-local').Strategy;
+var bcrypt = require('bcrypt-nodejs');
 
 var passport = require('passport');
 var flash    = require('connect-flash');
@@ -382,7 +382,6 @@ require('./config/passport')(passport); // pass passport for configuration
 
 
 // set up our express application
-app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.urlencoded({
 	extended: true
@@ -400,11 +399,57 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
-
-
-// routes ======================================================================
-require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
-
-// launch ======================================================================
-app.listen(port);
-console.log('The magic happens on port ' + port);
+//Login api
+app.get('/login', function(req, res) {
+    
+            // render the page and pass in any flash data if it exists
+            res.render('login.ejs', { message: req.flash('loginMessage') });
+        });
+    
+        // process the login form
+        app.post('/login', passport.authenticate('local-login', {
+                successRedirect : '/profile', // redirect to the secure profile section
+                failureRedirect : '/login', // redirect back to the signup page if there is an error
+                failureFlash : true // allow flash messages
+            }),
+            function(req, res) {
+                console.log("hello");
+    
+                if (req.body.remember) {
+                  req.session.cookie.maxAge = 1000 * 60 * 3;
+                } else {
+                  req.session.cookie.expires = false;
+                }
+            res.redirect('/');
+        });
+    
+        // =====================================
+        // PROFILE SECTION =========================
+        // =====================================
+        // we will want this protected so you have to be logged in to visit
+        // we will use route middleware to verify this (the isLoggedIn function)
+        app.get('/profile', isLoggedIn, function(req, res) {
+            res.render('profile.ejs', {
+                user : req.user // get the user out of session and pass to template
+            });
+        });
+    
+        // =====================================
+        // LOGOUT ==============================
+        // =====================================
+        app.get('/logout', function(req, res) {
+            req.logout();
+            res.redirect('/');
+        });
+    };
+    
+    // route middleware to make sure
+    function isLoggedIn(req, res, next) {
+    
+        // if user is authenticated in the session, carry on
+        if (req.isAuthenticated())
+            return next();
+    
+        // if they aren't redirect them to the home page
+        res.redirect('/');
+    }
