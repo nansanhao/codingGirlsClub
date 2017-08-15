@@ -32,10 +32,7 @@ app.use(orm.express("sqlite:public/CodingGirlsClub.db",{
             usrEmail:{type:'text'},
             usrCompanyName:{type:'text'},
             usrCompanyAddress:{type:'text'},
-            usrCompanyProfession:{type:'text'},
-            code:{type:'text'},
-            date:{type:'number'},
-            islive:{type:'number'}
+            usrCompanyProfession:{type:'text'}
         });
         next();
     }
@@ -111,14 +108,14 @@ app.get("/positions/:id",function (req,res) {
 //4.GET 根据邮箱id获得一个用户（返回一个用户JOSN对象）
 app.get("/users/:emailId",function (req,res) {
     var getInfo = req.params.emailId;
-        req.models.User.find({usrEmail:getInfo},function (err,usr) {
-            if(usr.length==0){
-                res.json([]);
-            }else {
-                res.json(usr[0]);
-            }
+    req.models.User.find({usrEmail:getInfo},function (err,usr) {
+        if(usr.length==0){
+            res.json([]);
+        }else {
+            res.json(usr[0]);
+        }
 
-        })
+    })
 
 });
 //5.POST  注册一个新用户(接收一个用户JSON对像)
@@ -135,6 +132,7 @@ app.post("/users",function (req,res) {
         newRecord.id = countx + 1;
 
         req.models.User.find({usrEmail: newRecord.usrEmail}, function (err, user) {
+
             if (user.length == 0) {
                 mailer({
                     to: newRecord.usrEmail,
@@ -280,75 +278,6 @@ app.get('/usrs/:emailId/positions/:id',function (req,res) {
     })
 });
 //12.增加了一个验证激活码的api
-app.get('/checkCode', function (req, res){
-    var usermail = req.query.mail;
-   var code = req.query.code;
-   //var outdate = req.query.outdate;
-    req.models.User.find({usrEmail:usermail}, function (err, user){
-        for(var i=0;i<user.length;i++) {
-            if (code == user[i].code && user[i].islive == 0 && (user[i].date - Date.now()) > 0) {
-
-                console.log(1);
-                user[i].islive = 1;
-                user[i].save(function (err) {
-                    if (err) {
-                        console.log("失败")
-
-                    } else {
-                        res.send('激活成功请登录！')
-                        };
-
-
-                });
-            }
-        }
-    });
-
-});
-
-
-//13.修改密码发送邮件
-app.post("/change_pass",function(req,res){
-    req.models.User.find({usrEmail:req.body.signEmail},function(err,user){
-        var flag=1;
-        if(user.length==0) flag=0;
-        var i=0;
-        for(;i<user.length;i++){
-            if(user[i].islive==1){
-                break;
-            }
-        }
-        if(i>=user.length) flag==0;
-        if(flag==0) res.send("false");
-        if(flag==1){
-            mailer({
-                    to:  req.body.signEmail,
-                    subject:'重置密码',
-                    text: `点击重置：<a href="http://localhost:8081/resetpass?mail=`+req.body.signEmail+`&password=`+req.body.signPassword//接收激活请求的链接
-
-                }
-            )
-        }
-
-    })
-})
-//14.修改密码
-app.get('/resetpass', function (req, res){
-    var usermail = req.query.mail;
-    var secpass = req.query.password;
-    //var outdate = req.query.outdate;
-    req.models.User.find({usrEmail:usermail}, function (err, user){
-        user[0].usrPassword=secpass;
-        user[0].save(function (err) {
-            if(err) return res.status(500).json({error:err.message})
-            res.alert({message:"用户密码更新成功"})
-
-        })
-
-    });
-
-});
-
 app.get('/checkCode', function (req, res) {
     var usermail = req.query.mail;
     var psw = req.query.psw;
