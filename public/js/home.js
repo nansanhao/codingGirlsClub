@@ -162,7 +162,7 @@ function addPagination(page, positions) {
                     pageStr+=`<li><a href="#" id="pageBtn${i+1}">${i+1}</a></li>`
                 }
             }
-            pageStr+=`<li class="disabled"><a href="#" id="pageBtn${Number(page)+1}">&raquo;</a></li></ul>`;
+            pageStr+=`<li class="disabled"><a href="#" >&raquo;</a></li></ul>`;
             $("#pagebtn").append(pageStr);
         }else {
             if(page==1){

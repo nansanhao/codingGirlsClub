@@ -47,75 +47,183 @@
     </div>
 </nav>
 <!---->
-    <div class="accountInfo">
-        <!--Email输入框-->
-        <div class="input-group input-login detailE">
-            <input type="text" class="form-control input-login" id="detailEmail" placeholder="Email" >
-            <span class="input-group-addon input-group-addon-icon"  >
-                <span class="glyphicon glyphicon-user glyphicon-icon" ></span></span>
+    <div  style="width: 100%;height: 160px;background-color: #209b60;margin-top: -20px ;padding: 40px">
+        <div class="container">
+            <div class="col-sm-6" >
+                <h1 style="color: white">ACCOUNT</h1>
+            </div>
+            <div class="col-sm-6 text-right"  >
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="/html/home.html" >Home</a>
+                    </li>
+                    <li style="color: white">account detail</li>
+                </ol>
+            </div>
         </div>
-        <!---->
-        <br>
-
-        <!--公司名称输入框-->
-        <div class="input-group input-login detailE">
-            <input type="text" class="form-control input-login " id="detailCompanyName" name="detailCompanyName" placeholder="CompanyName">
-            <span class="input-group-addon input-group-addon-icon">
-                <span class="glyphicon glyphicon glyphicon-dashboard glyphicon-icon"></span></span>
-        </div>
-        <!---->
-        <br>
-        <!--公司地址输入框-->
-        <div class="input-group input-login detailE">
-            <input type="text" class="form-control input-login " id="detailCompanyAddress" name="detailCompanyAddress" placeholder="CompanyAddress">
-            <span class="input-group-addon input-group-addon-icon ">
-                <span class="glyphicon glyphicon glyphicon-record glyphicon-icon"></span></span>
-        </div>
-        <!---->
-        <br>
-        <!--公司所属行业输入框-->
-        <div class="input-group input-login detailE">
-            <input type="text" class="form-control input-login " id="detailCompanyProfession" name="detailCompanyProfession" placeholder="CompanyProfession">
-            <span class="input-group-addon input-group-addon-icon">
-                <span class="glyphicon glyphicon-globe glyphicon-icon"></span></span>
-        </div>
-
-        <!---->
-        <br>
-        <!--password输入框-->
-        <div class="input-group input-login detailE">
-            <input type="password" class="form-control input-login " id="detailPassword" placeholder="Password">
-            <span class="input-group-addon input-group-addon-icon">
-                <span class="glyphicon glyphicon-lock glyphicon-icon"></span></span>
-        </div>
-        <!---->
-        <br>
-        <!--Password confirmation输入框-->
-        <div class="input-group input-login detailE">
-            <input type="password" class="form-control input-login " id="detailConfirmPassword" name="detailConfirmPassword" placeholder="ConfirmPassword">
-            <span class="input-group-addon input-group-addon-icon">
-                <span class="glyphicon glyphicon-lock glyphicon-icon"></span></span>
-        </div>
-        <!---->
-        <br>
-        <!--Current password输入框-->
-        <div class="input-group input-login detailE">
-            <input type="password" class="form-control input-login " id="detailCurrentPassword" placeholder="CurrentPassword">
-            <span class="input-group-addon input-group-addon-icon">
-                <span class="glyphicon glyphicon-lock glyphicon-icon"></span></span>
-        </div>
-        <!---->
-        <br>
-        <!--更改按钮和注销按钮-->
-        <div class="bs-example" id="butt">
-            <p id="test" type="text"></p>
-
-            <button type="button" class="btn btn-primary" id="modify">更改</button>
-            <button type="button" class="btn btn-primary" id="logOut">注销</button>
-            <br>
-        </div>
-        <!---->
     </div>
+    <p id="test" type="text" style="text-align: center;width:100%; position: absolute ;"></p>
+    <!--<div class="container">-->
+        <!--<div class="accountInfo">-->
+            <!--&lt;!&ndash;Email输入框&ndash;&gt;-->
+            <!--<div class="input-group input-login detailE">-->
+                <!--<input type="text" class="form-control input-login" id="detailEmail" placeholder="Email" >-->
+                <!--<span class="input-group-addon input-group-addon-icon"  >-->
+                <!--<span class="glyphicon glyphicon-user glyphicon-icon" ></span></span>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;&ndash;&gt;-->
+            <!--<br>-->
+
+
+            <!--<br>-->
+            <!--&lt;!&ndash;公司地址输入框&ndash;&gt;-->
+            <!--<div class="input-group input-login detailE">-->
+                <!--<input type="text" class="form-control input-login " id="detailCompanyAddress" name="detailCompanyAddress" placeholder="CompanyAddress">-->
+                <!--<span class="input-group-addon input-group-addon-icon ">-->
+                <!--<span class="glyphicon glyphicon glyphicon-record glyphicon-icon"></span></span>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;&ndash;&gt;-->
+            <!--<br>-->
+            <!--&lt;!&ndash;公司所属行业输入框&ndash;&gt;-->
+            <!--<div class="input-group input-login detailE">-->
+                <!--<input type="text" class="form-control input-login " id="detailCompanyProfession" name="detailCompanyProfession" placeholder="CompanyProfession">-->
+                <!--<span class="input-group-addon input-group-addon-icon">-->
+                <!--<span class="glyphicon glyphicon-globe glyphicon-icon"></span></span>-->
+            <!--</div>-->
+
+            <!--&lt;!&ndash;&ndash;&gt;-->
+            <!--<br>-->
+            <!--&lt;!&ndash;password输入框&ndash;&gt;-->
+            <!--<div class="input-group input-login detailE">-->
+                <!--<input type="password" class="form-control input-login " id="detailPassword" placeholder="Password">-->
+                <!--<span class="input-group-addon input-group-addon-icon">-->
+                <!--<span class="glyphicon glyphicon-lock glyphicon-icon"></span></span>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;&ndash;&gt;-->
+            <!--<br>-->
+            <!--&lt;!&ndash;Password confirmation输入框&ndash;&gt;-->
+            <!--<div class="input-group input-login detailE">-->
+                <!--<input type="password" class="form-control input-login " id="detailConfirmPassword" name="detailConfirmPassword" placeholder="ConfirmPassword">-->
+                <!--<span class="input-group-addon input-group-addon-icon">-->
+                <!--<span class="glyphicon glyphicon-lock glyphicon-icon"></span></span>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;&ndash;&gt;-->
+            <!--<br>-->
+            <!---->
+            <!--<br>-->
+            <!--&lt;!&ndash;更改按钮和注销按钮&ndash;&gt;-->
+            <!--<div class="bs-example" id="butt">-->
+                <!--<p id="test" type="text"></p>-->
+
+                <!--<button type="button" class="btn btn-primary" id="modify">更改</button>-->
+                <!--<button type="button" class="btn btn-primary" id="logOut">注销</button>-->
+                <!--<br>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;&ndash;&gt;-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6" >
+                <!--Email输入框-->
+                <div class="input-group input-login detailE" style="margin: 100px auto 0 auto">
+                    <input disabled="disabled" style="background-color: transparent" type="text" class="form-control input-login" id="detailEmail" placeholder="Email" >
+                    <span class="input-group-addon input-group-addon-icon" >
+                <span class="glyphicon glyphicon-user glyphicon-icon" ></span></span>
+                </div>
+                <!---->
+            </div>
+            <div class="col-sm-6" >
+                <!--password输入框-->
+                <div class="input-group input-login detailE" style="margin: 100px auto 0 auto">
+                    <input type="password" class="form-control input-login " id="detailPassword" placeholder="Password">
+                    <span class="input-group-addon input-group-addon-icon">
+                <span class="glyphicon glyphicon-lock glyphicon-icon"></span></span>
+                </div>
+                <!---->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6" >
+                <!--公司名称输入框-->
+                <div class="input-group input-login detailE" style="margin: 50px auto 0 auto">
+                    <input type="text" class="form-control input-login " id="detailCompanyName" name="detailCompanyName" placeholder="CompanyName">
+                    <span class="input-group-addon input-group-addon-icon">
+                <span class="glyphicon glyphicon glyphicon-dashboard glyphicon-icon"></span></span>
+                </div>
+                <!---->
+            </div>
+            <div class="col-sm-6" >
+                <!--Password confirmation输入框-->
+                <div class="input-group input-login detailE" style="margin: 50px auto 0 auto">
+                    <input type="password" class="form-control input-login " id="detailConfirmPassword" name="detailConfirmPassword" placeholder="ConfirmPassword">
+                    <span class="input-group-addon input-group-addon-icon">
+                <span class="glyphicon glyphicon-lock glyphicon-icon"></span></span>
+                </div>
+                <!---->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6" >
+                <!--公司所属行业输入框-->
+                <div class="input-group input-login detailE" style="margin: 50px auto 0 auto">
+                    <input type="text" class="form-control input-login " id="detailCompanyProfession" name="detailCompanyProfession" placeholder="CompanyProfession">
+                    <span class="input-group-addon input-group-addon-icon">
+                <span class="glyphicon glyphicon-globe glyphicon-icon"></span></span>
+                </div>
+                <!---->
+            </div>
+            <div class="col-sm-6" >
+                <!--Current password输入框-->
+                <div class="input-group input-login detailE" style="margin: 50px auto 0 auto">
+                    <input type="password" class="form-control input-login " id="detailCurrentPassword" placeholder="CurrentPassword">
+                    <span class="input-group-addon input-group-addon-icon">
+                <span class="glyphicon glyphicon-lock glyphicon-icon"></span></span>
+                </div>
+                <!---->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6" >
+                <!--公司地址输入框-->
+                <div class="input-group input-login detailE" style="margin: 50px auto 0 auto">
+                    <input type="text" class="form-control input-login " id="detailCompanyAddress" name="detailCompanyAddress" placeholder="CompanyAddress">
+                    <span class="input-group-addon input-group-addon-icon ">
+                <span class="glyphicon glyphicon glyphicon-record glyphicon-icon"></span></span>
+                </div>
+                <!---->
+            </div>
+            <div class="col-sm-6" >
+            </div>
+        </div>
+
+
+        <div class="bs-example"  id="butt" style="width: 500px; margin: 50px auto 0 auto">
+            <button type="button" class="btn btn-primary" style="width: 500px;height: 50px" id="modify">MAKE A CHANGE</button>
+
+        </div>
+
+
+        <!--<div class="bs-example" id="butt">-->
+
+            <!--<div class="row">-->
+                <!--<div class="col-sm-6" >-->
+                    <!--<button type="button" class="btn btn-primary" style="width: 500px;height: 50px" id="modify">更改</button>-->
+                <!--</div>-->
+                <!--<div class="col-sm-6">-->
+                    <!--<button type="button" class="btn btn-primary" id="logOut">注销</button>-->
+                <!--</div>-->
+            <!--</div>-->
+
+
+            <!--<br>-->
+        <!--</div>-->
+
+
+    </div>
+
 </form>
 </body>
 </html>

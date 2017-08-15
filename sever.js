@@ -107,16 +107,15 @@ app.get("/positions/:id",function (req,res) {
 //4.GET 根据邮箱id获得一个用户（返回一个用户JOSN对象）
 app.get("/users/:emailId",function (req,res) {
     var getInfo = req.params.emailId;
-    if(getInfo===''){
-        req.models.User.find(null,function (err,usr) {
-            //res.json(usr);
-        })
-    }
-    else{
         req.models.User.find({usrEmail:getInfo},function (err,usr) {
-            res.json(usr[0]);
+            if(usr.length==0){
+                res.json([]);
+            }else {
+                res.json(usr[0]);
+            }
+
         })
-    }
+
 });
 //5.POST  注册一个新用户(接收一个用户JSON对像)
 app.post("/users",function (req,res) {
@@ -160,6 +159,13 @@ app.get('/usrs/:emailId/positions/public',function(req,res){
         res.json(position);
     })
 });
+app.get('/usrs/:emailId/positions',function (req,res) {
+    let email = req.params.emailId;
+    req.models.Position.find({owner:email},function(err,position){
+        console.log(JSON.stringify(position));
+        res.json(position);
+    })
+})
 
 //8.GET 获得一个用户创建的未发表职位（返回一个职位JOSN对象数组）
 app.get('/usrs/:emailId/positions/hidden',function(req,res){
