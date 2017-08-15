@@ -1,5 +1,5 @@
 // config/database.js
-model.exports = {
+module.exports = {
     'connection': {
         'host': 'localhost',
         'user': 'root',
