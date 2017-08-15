@@ -3,6 +3,8 @@ let express =require('express');
 let orm=require('orm');
 let bodyparser=require("body-parser");
 let mailer=require("./mailer");
+let multer = require('multer');
+let upload = multer();
 let app = express();
 app.use(bodyparser.urlencoded({extended:true}));
 app.use(express.static('public'));
@@ -197,7 +199,7 @@ app.get('/usrs/:emailId/positions/hidden',function(req,res){
 });
 
 //9.POST 一个用户新建一个职位。（接收一个职位JOSN对象）
-app.post("/usrs/:emailId/positions",function(req,res){
+app.post("/usrs/:emailId/positions",upload.single(),function(req,res){
     let email = req.params.emailId;
     req.models.Position.count(null,function(err,count){
         console.log(count);
@@ -220,6 +222,7 @@ app.post("/usrs/:emailId/positions",function(req,res){
                 console.log(err)
             }else{
                 console.log('添加成功');
+                res.send(`创建成功emailId=${email}&Id=${count+1001}`);
             }
 
         });
@@ -290,6 +293,110 @@ app.get('/checkCode', function (req, res) {
         console.log(user);
         res.send("恭喜你，注册成功！\n您还可以回到主页:<a href=http://127.0.0.1:8081");
     });
+});
+//12.GET 一个用户获得‪一个职位的信息（返回一个职位JOSN对象） ksj
+app.get('/usrs/workDetail',function (req,res) {
+    let email=req.query.emailId;
+    let positionId=req.query.Id;
+    console.log(email);
+    console.log(positionId);
+    req.models.Position.find({owner:email,id:positionId},function (err,position) {
+        console.log(JSON.stringify(position));
+        res.json(position);
+    })
+});
+
+//13  ksj
+app.get("/users/workDetail/publishCondition",function (req,res) {
+    req.models.Position.find({id:req.query.Id},function (err,position) {
+        if(err) return res.status(500).json({error:err.message});
+        res.send(position[0].condition);
+    })
+});
+
+//14  ksj
+app.get("/users/workDetail/publish",function (req,res) {
+
+    req.models.Position.find({id:req.query.Id},function (err,position) {
+        if(err) return res.status(500).json({error:err.message});
+
+        position[0].condition = "public";
+
+        position[0].save(function (err) {
+            if(err) return res.status(500).json({error:err.message});
+            res.send("职位发布成功！");
+        })
+    })
+});
+
+//15.一个用户修改‪一个职位的信息（接收一个职位JOSN对象）post版本  ksj
+app.post('/usrs/positions/edit',upload.single(),function (req,res) {
+    //检测数据是否取到
+    let email=req.query.emailId;
+    let positionId=req.query.Id;
+    console.log(email);
+    console.log(positionId);
+    req.models.Position.find({owner:email,id:positionId},function (err,position){
+        position[0].title=req.body.title;
+        position[0].company=req.body.company;
+        position[0].description=req.body.description;
+        position[0].applyMethod=req.body.applyMethod;
+        position[0].expiryDate=req.body.expiryDate;
+        position[0].category=req.body.category;
+        position[0].jobType=req.body.jobType;
+        position[0].tags=req.body.tags;
+        position[0].city=req.body.city;
+        position[0].country=req.body.country;
+        position[0].save(function (err) {
+
+        });
+        res.json(position);
+        //测试用例
+        // req.models.Position.find({id:1001},function (err,ans) {
+        //     console.log(JSON.stringify(ans));
+        // })
+
+    });
+});
+//13.修改密码发送邮件
+app.post("/change_pass",function(req,res){
+    console.log(req.body.signEmail);
+    console.log(req.body.signPassword);
+    req.models.User.find({usrEmail:req.body.signEmail},function(err,user){
+
+        if(user.length==0) {
+            res.send("该用户不存在！");
+        }
+        else{
+            mailer({
+                to:  req.body.signEmail,
+                subject:'重置密码',
+                text: `点击重置：http://127.0.0.1:8081/resetpass?mail=${req.body.signEmail}&password=${req.body.signPassword}`//接收激活请求的链接
+            });
+        }
+    })
+});
+//14.修改密码
+app.get('/resetpass', function (req, res){
+    var usermail = req.query.mail;
+    var secpass = req.query.password;
+    console.log(usermail);
+    console.log(secpass);
+    req.models.User.find({usrEmail:usermail}, function (err, user){
+        console.log(JSON.stringify(user));
+        user[0].usrPassword=secpass;
+        user[0].save(function (err) {
+            if(err){
+                return res.status(500).json({error:err.message});
+            }
+            else{
+                res.send(`<p>用户密码更新成功,你可以<a href=" ">登录</a >试试`);
+            }
+
+        })
+
+    });
+
 });
 //服务器
 var server = app.listen(8081, function () {

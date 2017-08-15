@@ -8,8 +8,8 @@
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-    <script src="../js/edit.js" ></script>
-    <link href="../css/edit.css" rel="stylesheet" type="text/css" />
+    <script src="/js/edit.js" ></script>
+    <link href="/css/edit.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <!--导航栏-->
@@ -45,7 +45,222 @@
         <!---->
     </div>
 </nav>
-<!---->
-<p>edit</p>
+<div  style="width: 100%;height: 160px;background-color: #209b60;margin-top: -20px ;padding: 40px">
+    <div class="container">
+        <div class="col-sm-6" >
+            <h1 style="color: white">EDIT</h1>
+        </div>
+        <div class="col-sm-6 text-right"  >
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/html/home.html" >Home</a>
+                </li>
+                <li style="color: white">edit work</li>
+            </ol>
+        </div>
+    </div>
+</div>
+<p id="test" type="text" style="text-align: center;width:100%; position: absolute ;"></p>
+<div class="container" id="content" >
+    <form id="form1">
+        <div class="accountInfo" id="positionMaster">
+            <div class="row">
+                <div class="col-sm-6" >
+                    <!--title输入框-->
+                    <div class="input-group input-login detailE" style="margin: 100px auto 0 auto">
+                        <input type="text" class="form-control input-login" name="title" id="postTitle" placeholder="Title" >
+                        <span class="input-group-addon input-group-addon-icon"  >
+                <span class="glyphicon glyphicon-bookmark glyphicon-icon" ></span></span>
+                    </div>
+                    <!---->
+                </div>
+                <div class="col-sm-6" >
+                    <!--country-->
+                    <div class="input-group input-login detailE" style="margin: 100px auto 0 auto">
+                        <input type="text" class="form-control input-login " name="country" id="postCountry" placeholder="Country">
+                        <span class="input-group-addon input-group-addon-icon">
+                <span class="glyphicon glyphicon-home glyphicon-icon"></span></span>
+                    </div>
+                    <!---->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6" >
+                    <!--category输入框-->
+                    <div class="input-group input-login detailE" style="margin: 50px auto 0 auto">
+                        <input type="text" class="form-control input-login " name="category" id="postCategory" placeholder="Category">
+                        <span class="input-group-addon input-group-addon-icon">
+                <span class="glyphicon glyphicon-list glyphicon-icon"></span></span>
+                    </div>
+                    <!---->
+
+                </div>
+                <div class="col-sm-6" >
+                    <!--city-->
+                    <div class="input-group input-login detailE" style="margin: 50px auto 0 auto">
+                        <input type="text" class="form-control input-login " name="city" id="postCity" placeholder="City">
+                        <span class="input-group-addon input-group-addon-icon">
+                <span class="glyphicon glyphicon-home glyphicon-icon"></span></span>
+                    </div>
+                    <!---->
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6" >
+                    <!--type输入框-->
+                    <div class="input-group input-login detailE" style="margin: 50px auto 0 auto">
+                        <input type="text" class="form-control input-login " name="jobType" id="postType" placeholder="Job Type">
+                        <span class="input-group-addon input-group-addon-icon">
+                <span class="glyphicon glyphicon-list glyphicon-icon"></span></span>
+                    </div>
+                    <!---->
+
+                </div>
+                <div class="col-sm-6" >
+                    <!--公司名称输入框-->
+                    <div class="input-group input-login detailE" style="margin: 50px auto 0 auto">
+                        <input type="text" class="form-control input-login " name="company" id="postCompany" placeholder="Company">
+                        <span class="input-group-addon input-group-addon-icon">
+                <span class="glyphicon glyphicon-home glyphicon-icon"></span></span>
+                    </div>
+                    <!---->
+
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-6" >
+                    <!--tags-->
+                    <div class="input-group input-login detailE" style="margin: 50px auto 0 auto">
+                        <input type="text" class="form-control input-login " name="tags" id="postTags" placeholder="Tags">
+                        <span class="input-group-addon input-group-addon-icon">
+                <span class="glyphicon glyphicon-tags glyphicon-icon"></span></span>
+                    </div>
+                    <!---->
+
+                </div>
+                <div class="col-sm-6" >
+
+                    <!--apply输入框-->
+                    <div class="input-group input-login detailE" style="margin: 50px auto 0 auto">
+                        <input type="text" class="form-control input-login " name="applyMethod" id="postApply" placeholder="Apply">
+                        <span class="input-group-addon input-group-addon-icon">
+                <span class="glyphicon glyphicon-phone-alt glyphicon-icon"></span></span>
+                    </div>
+                    <!---->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6" >
+                    <!--description输入框-->
+                    <div class="input-group input-login detailE" style="margin: 50px auto 0 auto">
+                        <input type="text" class="form-control input-login " name="description" id="postDescription" placeholder="Description">
+                        <span class="input-group-addon input-group-addon-icon ">
+                <span class="glyphicon glyphicon-book glyphicon-icon"></span></span>
+                    </div>
+                    <!---->
+
+                </div>
+                <div class="col-sm-6" >
+                    <!--date输入框-->
+                    <div class="input-group input-login detailE" style="margin: 50px auto 0 auto">
+                        <input type="text" class="form-control input-login " name="expiryDate" id="postDate" placeholder="Date">
+                        <span class="input-group-addon input-group-addon-icon">
+                <span class="glyphicon glyphicon-calendar glyphicon-icon"></span></span>
+                    </div>
+                    <!---->
+                </div>
+            </div>
+            <!--更改按钮和注销按钮-->
+            <div class="bs-example" id="butt" style="width: 500px; margin: 50px auto 0 auto">
+                <button type="submit" class="btn btn-primary" id="postAddPosition" style="width: 500px;height: 50px" id="modify">CREATE ITEM</button>
+            </div>
+            <!---->
+        </div>
+    </form>
+</div>
+<script>
+    window.onload=function () {
+        let emailId=sessionStorage.getItem("emailId");
+        if(sessionStorage.getItem("emailId")){
+            $("#logAcount").empty();
+            let str=`<li><a href="/html/accountDetail.html"><span class="glyphicon glyphicon-user"></span> ${emailId}</a></li>`;
+            str+=`<li><a href="/html/home.html" onclick="sessionStorage.clear()"><span class="glyphicon glyphicon-log-out"></span> EXIT</a></li>`
+            $("#logAcount").append(str);
+        }else {
+            $('#test').empty();
+            $('#positionMaster').empty();
+            let str = "<div class='alert alert-info alert-dismissible' role='alert' style='font-size: 20px'>"+
+                "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"+
+                "<span aria-hidden='true'>&times;</span>"+"</button>"+" ATTENTION&nbsp;!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please log in first;</div>";
+            $('#test').append(str);
+
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if ((xhr.status >= 200 && xhr.status < 300) || xhr === 304) {
+                    var response = xhr.responseText;
+                    var responseJson = JSON.parse(response);
+                    var responseObj = responseJson[0];
+                    var form = document.getElementById("form1");
+                    form.elements[0].value = responseObj.title;
+                    form.elements[1].value = responseObj.company;
+                    form.elements[2].value = responseObj.description;
+                    form.elements[3].value = responseObj.applyMethod;
+                    form.elements[4].value = responseObj.expiryDate;
+                    form.elements[5].value = responseObj.category;
+                    form.elements[6].value = responseObj.jobType;
+                    form.elements[7].value = responseObj.tags;
+                    form.elements[8].value = responseObj.city;
+                    form.elements[9].value = responseObj.country;
+//                    newRecord.expiryDate=req.body.expiryDate;
+//                    newRecord.category=req.body.category;
+//                    newRecord.jobType=req.body.jobType;
+//                    newRecord.tags=req.body.tags;
+//                    newRecord.city=req.body.city;
+//                    newRecord.country=req.body.country;
+//                    newRecord.condition=req.body.condition;
+//                    newRecord.owner=req.body.owner;
+                }
+                else {
+                    alert("error");
+                }
+            }
+        };
+        var urlArr = document.URL.split('?');
+        xhr.open("get",`/usrs/workDetail?${urlArr[1]}`,true);
+        xhr.send(null);
+        submit();
+    };
+    function submit() {
+        var form1 = document.getElementById("form1");
+        var submit = document.getElementById("postAddPosition");
+        submit.addEventListener("click",function(event){
+            event.preventDefault();
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if(xhr.readyState===4){
+                    if(xhr.status>=200&&xhr.status<300||xhr.status===304){
+                        //修改成功
+                        $('#test').empty();
+                        let str = "<div class='alert alert-success alert-dismissible' role='alert'>"+
+                            "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>&times;</span>"+"</button>"+"SUCCESS&nbsp;!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Modify successfully</div>";
+                        $('#test').append(str);
+                        var urlArr = document.URL.split('?');
+                        window.location = `workDetail.html?${urlArr[1]}`
+                    }
+                }
+            }
+            var urlArr = document.URL.split('?');
+            xhr.open("post",`/usrs/positions/edit?${urlArr[1]}`,true);
+            var formData = new FormData(form1);
+            xhr.send(formData);
+        })
+    }
+</script>
 </body>
 </html>

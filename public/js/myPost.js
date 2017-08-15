@@ -85,7 +85,7 @@ function positionToHtml(position,htmlId) {
         <h2><span class="glyphicon glyphicon-bookmark"></span> ${position.title}</h2>
         <h4 class="position-h">${position.country} ${position.city}</h4>
         <h4 class="position-h">${position.condition}</h4>
-        <a href="/html/infoDetail.html?positionId=${position.id}" class="position-a"><span class="glyphicon glyphicon-hand-right"></span> Know More</a>
+        <a href="/html/workDetail.html?emailId=${sessionStorage.getItem("emailId")}&Id=${position.id}" class="position-a"><span class="glyphicon glyphicon-hand-right"></span> Know More</a>
     </div>`
     $(`#${htmlId}`).append(positionStr)
 }

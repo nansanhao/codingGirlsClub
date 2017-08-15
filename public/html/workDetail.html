@@ -8,8 +8,8 @@
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-    <script src="../js/workDetail.js" ></script>
-    <link href="../css/workDetail.css" rel="stylesheet" type="text/css" />
+    <script src="/js/workDetail.js" ></script>
+    <link href="/css/workDetail.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <!--导航栏-->
@@ -45,7 +45,203 @@
         <!---->
     </div>
 </nav>
+<div  style="width: 100%;height: 160px;background-color: #209b60;margin-top: -20px ;padding: 40px">
+    <div class="container">
+        <div class="col-sm-6" >
+            <h1 style="color: white">WORK</h1>
+        </div>
+        <div class="col-sm-6 text-right"  >
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/html/home.html" >Home</a>
+                </li>
+                <li style="color: white">work detail</li>
+            </ol>
+        </div>
+    </div>
+</div>
+<p id="test" type="text" style="text-align: center;width:100%; position: absolute ;"></p>
 <!---->
-workDetail
+<!--<form id="form1">-->
+<!--<input type="text" id="title" readonly="readonly">title<br>-->
+<!--<input type="text" id="company" readonly="readonly">company<br>-->
+<!--<input type="text" id="description" readonly="readonly">description<br>-->
+<!--<input type="text" id="tags" readonly="readonly">tags<br>-->
+<!--<input type="text" id="apply" readonly="readonly">apply<br>-->
+<!--<button id="publish">publish</button>-->
+<!--<button id="edit">edit</button>-->
+<!--</form>-->
+<div class="container" id="content" style="width: 500px;">
+    <form id="form1">
+        <div class="accountInfo">
+            <!--Email输入框-->
+            <div class="input-group input-login detailE" style="margin: 100px auto 0 auto">
+                <input type="text" class="form-control input-login" id="title" readonly="readonly" placeholder="Title" >
+                <span class="input-group-addon input-group-addon-icon"  >
+                <span class="glyphicon glyphicon-user glyphicon-icon" ></span></span>
+            </div>
+            <!---->
+            <!--公司名称输入框-->
+            <div class="input-group input-login detailE" style="margin: 50px auto 0 auto">
+                <input type="text" class="form-control input-login " id="company" readonly="readonly" placeholder="CompanyName">
+                <span class="input-group-addon input-group-addon-icon">
+                <span class="glyphicon glyphicon glyphicon-dashboard glyphicon-icon"></span></span>
+            </div>
+            <!---->
+            <!--公司地址输入框-->
+            <div class="input-group input-login detailE" style="margin: 50px auto 0 auto">
+                <input type="text" class="form-control input-login " id="description" readonly="readonly" placeholder="Description">
+                <span class="input-group-addon input-group-addon-icon ">
+                <span class="glyphicon glyphicon glyphicon-record glyphicon-icon"></span></span>
+            </div>
+            <!---->
+            <!--公司所属行业输入框-->
+            <div class="input-group input-login detailE" style="margin: 50px auto 0 auto">
+                <input type="text" class="form-control input-login " id="tags" readonly="readonly" placeholder="Apply">
+                <span class="input-group-addon input-group-addon-icon">
+                <span class="glyphicon glyphicon-globe glyphicon-icon"></span></span>
+            </div>
+            <!---->
+            <!--password输入框-->
+            <div class="input-group input-login detailE" style="margin: 50px auto 0 auto">
+                <input type="text" class="form-control input-login " id="apply" readonly="readonly" placeholder="Date">
+                <span class="input-group-addon input-group-addon-icon">
+                <span class="glyphicon glyphicon-lock glyphicon-icon"></span></span>
+            </div>
+            <!---->
+            <br>
+            <!--&lt;!&ndash;发布和编辑按钮&ndash;&gt;-->
+            <!--<div class="btn-group btn-group-justified" >-->
+                <!--<div class="btn-group" role="group">-->
+                    <!--<button type="button" class="btn btn-default" id="publish">publish</button>-->
+                <!--</div>-->
+                <!--<div class="btn-group" role="group">-->
+                    <!--<button type="button" class="btn btn-default" id="edit">edit</button>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;&ndash;&gt;-->
+            <!--发布和编辑按钮-->
+            <div class="bs-example" style="width: 500px; margin: 40px auto 0 auto">
+                <button type="button" class="btn btn-primary" id="publish" style="width: 500px;height: 50px">PUBLISH</button>
+                <br><br>
+                <button type="button" class="btn btn-primary" id="edit" style="width: 500px;height: 50px">EDIT</button>
+            </div>
+            <!---->
+        </div>
+    </form>
+</div>
+<script>
+    window.onload=function () {
+        let emailId=sessionStorage.getItem("emailId");
+        if(sessionStorage.getItem("emailId")){
+            $("#logAcount").empty();
+            let str=`<li><a href="/html/accountDetail.html"><span class="glyphicon glyphicon-user"></span> ${emailId}</a></li>`;
+            str+=`<li><a href="/html/home.html" onclick="sessionStorage.clear()"><span class="glyphicon glyphicon-log-out"></span> EXIT</a></li>`
+            $("#logAcount").append(str);
+        }else {
+            $('#test').empty();
+            $('#positionMaster').empty();
+            let str = "<div class='alert alert-info alert-dismissible' role='alert' style='font-size: 20px'>"+
+                "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"+
+                "<span aria-hidden='true'>&times;</span>"+"</button>"+" ATTENTION&nbsp;!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please log in first;</div>";
+            $('#test').append(str);
+
+        }
+        judgePublish();
+        publish();
+        edit();
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if ((xhr.status >= 200 && xhr.status < 300) || xhr === 304) {
+                    var response = xhr.responseText;
+                    var responseJson = JSON.parse(response);
+                    var responseObj = responseJson[0];
+                    var form = document.getElementById("form1");
+                    form.elements[0].value = responseObj.title;
+                    form.elements[1].value = responseObj.company;
+                    form.elements[2].value = responseObj.description;
+                    form.elements[3].value = responseObj.tags;
+                    form.elements[4].value = responseObj.applyMethod;
+                }
+                else {
+                    alert("error");
+                }
+            }
+        };
+        var urlArr = document.URL.split('?');
+//        alert(urlArr);
+//        var value = urlArr[1].split("&");
+//        alert(value);
+//        var emailId = value[0].split("=")[1];
+//        var Id = value[1].split("=")[1];
+//        var url = `http://127.0.0.1:8081/usrs/${emailId}/positions/${Id}`;
+        xhr.open("get",`/usrs/workDetail?${urlArr[1]}`,true);
+        xhr.send(null);
+    };
+    function publish() {
+        var publish = document.getElementById("publish");
+        var edit = document.getElementById("edit");
+        publish.addEventListener("click",function (event) {
+            event.preventDefault();
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if(xhr.readyState===4){
+                    if(xhr.status>=200&&xhr.status<300||xhr===304){
+                        //发布成功
+                        $('#test').empty();
+                        let str = "<div class='alert alert-success alert-dismissible' role='alert'>"+
+                            "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>&times;</span>"+"</button>"+"SUCCESS&nbsp;!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Publish successfully</div>";
+                        $('#test').append(str);
+                        window.location.href = `/html/myPost.html`;
+                        //
+                        publish.style.display = "none";
+                    }
+                }
+            };
+            var urlArr = document.URL.split('?');
+            xhr.open("get",`/users/workDetail/publish?${urlArr[1]}`,true);
+            xhr.send(null);
+        })
+    }
+
+    function judgePublish() {
+        var publish = document.getElementById("publish");
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if(xhr.readyState===4){
+                if(xhr.status>=200&&xhr.status<300||xhr===304){
+                    var response = xhr.responseText;
+                    if(response==="public"){
+                        publish.style.display = "none";
+                    } else {
+                        publish.style.display = "inherit";
+                    }
+                }
+            }
+        };
+        var urlArr = document.URL.split('?');
+        xhr.open("get",`/users/workDetail/publishCondition?${urlArr[1]}`,true);
+        xhr.send(null);
+    }
+
+    function edit() {
+        var edit = document.getElementById("edit");
+        edit.addEventListener("click",function(event){
+            event.preventDefault();
+            var urlArr = document.URL.split('?');
+            window.location.href = `edit.html?${urlArr[1]}`;
+        })
+    }
+</script>
 </body>
+
+<!--* title：**id=title**-->
+<!--* company：**id=company**-->
+<!--* description：**id=description**(支持简单的富文本编辑；如果能再同时支持markdown，会有加分)-->
+<!--* tags：**id =tags**-->
+<!--* how to apply：**id=apply**(支持简单的富文本编辑；如果能再同时支持markdown，会有加分)-->
+<!--* **id=publish**（有一个发布的按钮）-->
+<!--* **id=edit**（有一个编辑的按钮）-->
 </html>

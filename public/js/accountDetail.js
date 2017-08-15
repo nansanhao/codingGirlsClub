@@ -18,10 +18,11 @@ window.onload = function(){
         str+=`<li><a href="/html/home.html" onclick="logOut()"><span class="glyphicon glyphicon-log-out"></span> EXIT</a></li>`
         $("#logAcount").append(str);
     }else {
+        $('#accountMaster').empty();
         $('#test').empty();
         let str = "<div class='alert alert-info alert-dismissible' role='alert' style='font-size: 20px'>"+
             "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"+
-            "<span aria-hidden='true'>&times;</span>"+"</button>"+" ATTENTION&nbsp;!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please log in first;</div>";
+            "<span aria-hidden='true'>&times;</span>"+"</button>"+" ATTENTION&nbsp;!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please log in first</div>";
         $('#test').append(str);
 
     }
