@@ -2,6 +2,7 @@
 let express =require('express');
 let orm=require('orm');
 let bodyparser=require("body-parser");
+let mailer=require("./mailer");
 let app = express();
 let uuid= require("node-uuid");
 let mailer=require("./mailer")
@@ -112,22 +113,22 @@ app.get("/positions/:id",function (req,res) {
 //4.GET 根据邮箱id获得一个用户（返回一个用户JOSN对象）
 app.get("/users/:emailId",function (req,res) {
     var getInfo = req.params.emailId;
-    if(getInfo===''){
-        req.models.User.find(null,function (err,usr) {
-            //res.json(usr);
-        })
-    }
-    else{
         req.models.User.find({usrEmail:getInfo},function (err,usr) {
-            res.json(usr[0]);
+            if(usr.length==0){
+                res.json([]);
+            }else {
+                res.json(usr[0]);
+            }
+
         })
-    }
+
 });
 //5.POST  注册一个新用户(接收一个用户JSON对像)
 app.post("/users",function (req,res) {
 
     var newRecord={};
     var countx=0;
+<<<<<<< HEAD
     var codes = uuid.v4();
 
     newRecord.code=codes;
@@ -169,14 +170,44 @@ app.post("/users",function (req,res) {
             })
         })
     })
+=======
+    newRecord.usrPassword = req.body.signConfirmPassword;
+    newRecord.usrEmail = req.body.signEmail;
+    console.log(newRecord.usrEmail);
+    console.log(newRecord.usrPassword);
+    req.models.User.count(null, function (err, edcount) {
+        countx = edcount;
+        console.log(edcount);
+        newRecord.id = countx + 1;
 
+        req.models.User.find({usrEmail: newRecord.usrEmail}, function (err, user) {
+>>>>>>> 3b1275ac164757b1539d9a2d412b21f761b5152a
+
+            if (user.length == 0) {
+                mailer({
+                    to: newRecord.usrEmail,
+                    subject: '激活帐号',
+                    text: `点击激活：<a href="http://127.0.0.1:8081/checkCode?mail=${newRecord.usrEmail}&psw=${newRecord.usrPassword}&id=${newRecord.id}
+                     您还可以回到主页:<a href="http://127.0.0.1:8081`//接收激活请求的链接
+                })
+                res.send("ok")
+                console.log("ok")
+            }
+            else {
+                console.log("该邮箱已存在");
+                res.send("该邮箱已存在");
+            }
+        });
+    });
 });
 //6.POST 一个用户完善自己的信息。修改一个用户的用户信息(接受一个用户JSON对象)
 app.post('/users/:emailId',function(req,res){
     let email = req.params.emailId;
     req.models.User.find({usrEmail: email }, function (err, user) {
         // console.log("People found: %d", user.length);
-        user[0].usrPassword= req.body.usrPassword;
+        if(req.body.usrPassword!=''){
+            user[0].usrPassword= req.body.usrPassword;
+        }
         user[0].usrCompanyName= req.body.usrCompanyName;
         user[0].usrCompanyAddress= req.body.usrCompanyAddress;
         user[0].usrCompanyProfession= req.body.usrCompanyProfession;
@@ -196,6 +227,13 @@ app.get('/usrs/:emailId/positions/public',function(req,res){
         res.json(position);
     })
 });
+app.get('/usrs/:emailId/positions',function (req,res) {
+    let email = req.params.emailId;
+    req.models.Position.find({owner:email},function(err,position){
+        console.log(JSON.stringify(position));
+        res.json(position);
+    })
+})
 
 //8.GET 获得一个用户创建的未发表职位（返回一个职位JOSN对象数组）
 app.get('/usrs/:emailId/positions/hidden',function(req,res){
@@ -290,6 +328,7 @@ app.get('/usrs/:emailId/positions/:id',function (req,res) {
     })
 });
 //12.增加了一个验证激活码的api
+<<<<<<< HEAD
 app.get('/checkCode', function (req, res){
     var usermail = req.query.mail;
    var code = req.query.code;
@@ -359,6 +398,21 @@ app.get('/resetpass', function (req, res){
 
 });
 
+=======
+app.get('/checkCode', function (req, res) {
+    var usermail = req.query.mail;
+    var psw = req.query.psw;
+    var id = req.query.id;
+    var newRecord = {};
+    newRecord.id = id;
+    newRecord.usrEmail = usermail;
+    newRecord.usrPassword = psw;
+    req.models.User.create(newRecord, function (err, user) {
+        console.log(user);
+        res.send("恭喜你，注册成功！\n您还可以回到主页:<a href=http://127.0.0.1:8081");
+    });
+});
+>>>>>>> 3b1275ac164757b1539d9a2d412b21f761b5152a
 //服务器
 var server = app.listen(8081, function () {
     var host = server.address().address;
