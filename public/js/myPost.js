@@ -8,6 +8,12 @@ window.onload=function () {
         let str=`<li><a href="/html/accountDetail.html"><span class="glyphicon glyphicon-user"></span> ${emailId}</a></li>`;
         str+=`<li><a href="" id="LOGOUT"><span class="glyphicon glyphicon-log-out"></span> EXIT</a></li>`
         $("#logAcount").append(str);
+    }else {
+        $('#test').empty();
+        let str = "<div class='alert alert-info alert-dismissible' role='alert' style='font-size: 20px'>"+
+            "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"+
+            "<span aria-hidden='true'>&times;</span>"+"</button>"+" ATTENTION&nbsp;!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please log in first;</div>";
+        $('#test').append(str);
     }
 }
 $(document).ready(function(){

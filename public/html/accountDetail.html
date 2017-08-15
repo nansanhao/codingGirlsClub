@@ -122,7 +122,7 @@
             <!--&lt;!&ndash;&ndash;&gt;-->
         <!--</div>-->
     <!--</div>-->
-    <div class="container">
+    <div class="container" id="accountMaster">
         <div class="row">
             <div class="col-sm-6" >
                 <!--Email输入框-->
@@ -136,7 +136,7 @@
             <div class="col-sm-6" >
                 <!--password输入框-->
                 <div class="input-group input-login detailE" style="margin: 100px auto 0 auto">
-                    <input type="password" class="form-control input-login " id="detailPassword" placeholder="Password">
+                    <input type="password" class="form-control input-login " id="detailPassword" onkeyup="checkpass(this.id)" placeholder="Password">
                     <span class="input-group-addon input-group-addon-icon">
                 <span class="glyphicon glyphicon-lock glyphicon-icon"></span></span>
                 </div>
@@ -147,7 +147,7 @@
             <div class="col-sm-6" >
                 <!--公司名称输入框-->
                 <div class="input-group input-login detailE" style="margin: 50px auto 0 auto">
-                    <input type="text" class="form-control input-login " id="detailCompanyName" name="detailCompanyName" placeholder="CompanyName">
+                    <input type="text" class="form-control input-login " id="detailCompanyName"  name="detailCompanyName" placeholder="CompanyName">
                     <span class="input-group-addon input-group-addon-icon">
                 <span class="glyphicon glyphicon glyphicon-dashboard glyphicon-icon"></span></span>
                 </div>
@@ -156,7 +156,7 @@
             <div class="col-sm-6" >
                 <!--Password confirmation输入框-->
                 <div class="input-group input-login detailE" style="margin: 50px auto 0 auto">
-                    <input type="password" class="form-control input-login " id="detailConfirmPassword" name="detailConfirmPassword" placeholder="ConfirmPassword">
+                    <input type="password" class="form-control input-login " id="detailConfirmPassword" onkeyup="checksecpass(this.id)" name="detailConfirmPassword" placeholder="ConfirmPassword">
                     <span class="input-group-addon input-group-addon-icon">
                 <span class="glyphicon glyphicon-lock glyphicon-icon"></span></span>
                 </div>
@@ -225,5 +225,51 @@
     </div>
 
 </form>
+<script type="text/javascript">
+    var t1;
+    function checkmail(x)
+    {
+        $('#check1').remove();
+        var y=document.getElementById(x).value
+        if(!/[@]{1}/.test(y)){
+            $('#test').empty()
+            let str = "<div class='alert alert-danger alert-dismissible' role='alert' style='font-size: 20px'>"+
+                "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"+
+                "<span aria-hidden='true'>&times;</span>"+"</button>"+" WARNING&nbsp;!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please enter the correct mailbox </div>";
+            $('#test').append(str);
+        }else {
+            $('#test').empty()
+        }
+
+    }
+    function checkpass(x)
+    {
+        $('#check2').remove();
+        t1=document.getElementById(x).value;
+        if(x.length<8||x.length>20||! /^[0-9a-zA-Z!@#$%^&*]{8,20}$/.test(t1)){
+            $('#test').empty();
+            let str = "<div class='alert alert-info alert-dismissible' role='alert' style='font-size: 20px'>"+
+                "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"+
+                "<span aria-hidden='true'>&times;</span>"+"</button>"+" ATTENTION&nbsp;!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contains only letters, numbers, and must be between 8-20 digits</div>";
+            $('#test').append(str);
+        }else {
+            $('#test').empty()
+        }
+    }
+    function checksecpass(x){
+        $('#check3').remove();
+        var y=document.getElementById(x).value;
+        if(t1!=y){
+            $('#test').empty();
+            let str = "<div class='alert alert-danger alert-dismissible' role='alert' style='font-size: 20px'>"+
+                "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"+
+                "<span aria-hidden='true'>&times;</span>"+"</button>"+" WARNING&nbsp;!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The password entered for the two time must be consistent</div>";
+            $('#test').append(str);
+        }else {
+            $('#test').empty();
+        }
+    }
+
+</script>
 </body>
 </html>

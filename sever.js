@@ -2,6 +2,7 @@
 let express =require('express');
 let orm=require('orm');
 let bodyparser=require("body-parser");
+let mailer=require("./mailer");
 let app = express();
 app.use(bodyparser.urlencoded({extended:true}));
 app.use(express.static('public'));
@@ -121,25 +122,42 @@ app.get("/users/:emailId",function (req,res) {
 app.post("/users",function (req,res) {
     var newRecord={};
     var countx=0;
-    req.models.User.count(null,function(err,edcount){
-        countx=edcount;
+    newRecord.usrPassword = req.body.signConfirmPassword;
+    newRecord.usrEmail = req.body.signEmail;
+    console.log(newRecord.usrEmail);
+    console.log(newRecord.usrPassword);
+    req.models.User.count(null, function (err, edcount) {
+        countx = edcount;
         console.log(edcount);
-        newRecord.id=countx+1;
-        newRecord.usrPassword=req.body.signConfirmPassword;
-        req.models.User.create(newRecord,function(err,re){
-            if(err)  return res.status(500).json({error:err});
-            console.log("ok");
-        })
+        newRecord.id = countx + 1;
 
-    })
+        req.models.User.find({usrEmail: newRecord.usrEmail}, function (err, user) {
 
+            if (user.length == 0) {
+                mailer({
+                    to: newRecord.usrEmail,
+                    subject: '激活帐号',
+                    text: `点击激活：<a href="http://127.0.0.1:8081/checkCode?mail=${newRecord.usrEmail}&psw=${newRecord.usrPassword}&id=${newRecord.id}
+                     您还可以回到主页:<a href="http://127.0.0.1:8081`//接收激活请求的链接
+                })
+                res.send("ok")
+                console.log("ok")
+            }
+            else {
+                console.log("该邮箱已存在");
+                res.send("该邮箱已存在");
+            }
+        });
+    });
 });
 //6.POST 一个用户完善自己的信息。修改一个用户的用户信息(接受一个用户JSON对象)
 app.post('/users/:emailId',function(req,res){
     let email = req.params.emailId;
     req.models.User.find({usrEmail: email }, function (err, user) {
         // console.log("People found: %d", user.length);
-        user[0].usrPassword= req.body.usrPassword;
+        if(req.body.usrPassword!=''){
+            user[0].usrPassword= req.body.usrPassword;
+        }
         user[0].usrCompanyName= req.body.usrCompanyName;
         user[0].usrCompanyAddress= req.body.usrCompanyAddress;
         user[0].usrCompanyProfession= req.body.usrCompanyProfession;
@@ -258,6 +276,20 @@ app.get('/usrs/:emailId/positions/:id',function (req,res) {
         console.log(JSON.stringify(position));
         res.json(position);
     })
+});
+//12.增加了一个验证激活码的api
+app.get('/checkCode', function (req, res) {
+    var usermail = req.query.mail;
+    var psw = req.query.psw;
+    var id = req.query.id;
+    var newRecord = {};
+    newRecord.id = id;
+    newRecord.usrEmail = usermail;
+    newRecord.usrPassword = psw;
+    req.models.User.create(newRecord, function (err, user) {
+        console.log(user);
+        res.send("恭喜你，注册成功！\n您还可以回到主页:<a href=http://127.0.0.1:8081");
+    });
 });
 //服务器
 var server = app.listen(8081, function () {
