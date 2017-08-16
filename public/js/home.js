@@ -236,11 +236,12 @@ function appendPositions(page,Id,positions) {
 }
 //把某个position加入html，htmlId是html上某个元素的id
 function positionToHtml(position,htmlId) {
-    let positionStr=`<div class="col-md-3 position" >
+    let positionStr=`<div class="col-md-4 position" >
         <h2><span class="glyphicon glyphicon-bookmark"></span> ${position.title}</h2>
         <h4 class="position-h">${position.country} ${position.city}</h4>
         <h4 class="position-h">${position.category}</h4>
         <h4 class="position-h">${position.jobType}</h4>
+        <h4 class="position-h">${position.description}</h4>
         <a href="/html/infoDetail.html?positionId=${position.id}" class="position-a"><span class="glyphicon glyphicon-hand-right"></span> Know More</a>
     </div>`
     $(`#${htmlId}`).append(positionStr)

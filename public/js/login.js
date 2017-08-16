@@ -1,5 +1,20 @@
 $(document).ready(function () {
-    let  info=document.cookie;
+    function getCookie(cname)
+    {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++)
+        {
+            var c = ca[i].trim();
+            if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+        }
+        return "";
+    }
+    if(document.cookie!=''){
+        $("#rememberPassword").attr('checked','checked');
+        document.getElementById('loginEmail').value=getCookie('emailId');
+        document.getElementById('loginPassword').value=getCookie('password');
+    }
 
     $("#login").on('click',function () {
         let email=$("#loginEmail").val();
@@ -22,9 +37,12 @@ $(document).ready(function () {
                     if(user.usrEmail==email&&user.usrPassword==password){
                         if(isRemember==true){
                             //记住密码并登录且跳到主页
-                                document.cookie='emailId'+'='+email;
-                                document.cookie='password'+'='+password;
-
+                            document.cookie=`emailId=${email}; expires=18 Dec 2017 12:00:00 GMT`;
+                            document.cookie=`password=${password}; expires=18 Dec 2017 12:00:00 GMT`;
+                        }else {
+                            //清除cookies
+                            document.cookie=`emailId=${email}; expires=18 Dec 2016 12:00:00 GMT`;
+                            document.cookie=`password=${password}; expires=18 Dec 2016 12:00:00 GMT`;
                         }
                         $("#logAcount").empty();
                         let str=`<li><a href="/html/accountDetail.html"><span class="glyphicon glyphicon-user"></span> ${email}</a></li>`;
