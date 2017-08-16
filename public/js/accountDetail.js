@@ -31,14 +31,13 @@ window.onload = function(){
 function logOut() {
         //退出功能
             sessionStorage.clear();
-
-
 }
 window.addEventListener('DOMContentLoaded',function(){
     document.getElementById("modify").addEventListener('click',function(){
         let password = document.getElementById("detailPassword").value;
         let confirmPw = document.getElementById("detailConfirmPassword").value;
         let currentPw = document.getElementById("detailCurrentPassword").value;
+
         if(password==confirmPw&&currentPw!=''){
             let oneUser = [{}];
             oneUser[0].usrPassword= document.getElementById("detailConfirmPassword").value;

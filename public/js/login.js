@@ -1,13 +1,11 @@
 $(document).ready(function () {
+    let  info=document.cookie;
 
     $("#login").on('click',function () {
         let email=$("#loginEmail").val();
         let password=$("#loginPassword").val();
         let isRemember=$("#rememberPassword").is(":checked");
-        if(isRemember==true){
-            //记住密码并登录且跳到主页
 
-        }else {
             $.get(`/users/${email}`,function (ans) {
                 console.log(JSON.stringify(ans));
                 let user=ans;
@@ -22,6 +20,12 @@ $(document).ready(function () {
                 }else {
                     //账号存在且信息正确
                     if(user.usrEmail==email&&user.usrPassword==password){
+                        if(isRemember==true){
+                            //记住密码并登录且跳到主页
+                                document.cookie='emailId'+'='+email;
+                                document.cookie='password'+'='+password;
+
+                        }
                         $("#logAcount").empty();
                         let str=`<li><a href="/html/accountDetail.html"><span class="glyphicon glyphicon-user"></span> ${email}</a></li>`;
                         str+=`<li><a href=""><span class="glyphicon glyphicon-log-out"></span> EXIT</a></li>`
@@ -40,7 +44,7 @@ $(document).ready(function () {
                 }
 
             })
-        }
+
     })
 
 
