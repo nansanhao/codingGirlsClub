@@ -1,14 +1,14 @@
 
-window.onload=function () {
-    //alert("sss")
-    if(sessionStorage.getItem("emailId")){
-        let emailId = sessionStorage.getItem("emailId");
-        $("#logAcount").empty();
-        let str=`<li><a href="/html/accountDetail.html"><span class="glyphicon glyphicon-user"></span> ${emailId}</a></li>`;
-        str+=`<li><a href="" id="LOGOUT"><span class="glyphicon glyphicon-log-out"></span> EXIT</a></li>`
-        $("#logAcount").append(str);
-    }
-}
+// window.onload=function () {
+//     //alert("sss")
+//     if(sessionStorage.getItem("emailId")){
+//         let emailId = sessionStorage.getItem("emailId");
+//         $("#logAcount").empty();
+//         let str=`<li><a href="/html/accountDetail.html"><span class="glyphicon glyphicon-user"></span> ${emailId}</a></li>`;
+//         str+=`<li><a href="" id="LOGOUT"><span class="glyphicon glyphicon-log-out"></span> EXIT</a></li>`
+//         $("#logAcount").append(str);
+//     }
+// }
 
 
 //每页职位的个数（全局变量）

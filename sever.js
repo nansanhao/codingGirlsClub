@@ -139,7 +139,7 @@ app.post("/users",function (req,res) {
                 mailer({
                     to: newRecord.usrEmail,
                     subject: '激活帐号',
-                    text: `点击激活：http://localhost:8081/checkCode?mail=${newRecord.usrEmail}&psw=${newRecord.usrPassword}&id=${newRecord.id}`//接收激活请求的链接
+                    text: `点击激活：http://localhost:3000/checkCode?mail=${newRecord.usrEmail}&psw=${newRecord.usrPassword}&id=${newRecord.id}`//接收激活请求的链接
                 })
                 res.send("ok")
                 console.log("ok")
@@ -371,7 +371,7 @@ app.post("/change_pass",function(req,res){
             mailer({
                 to:  req.body.signEmail,
                 subject:'重置密码',
-                text: `点击重置：http://localhost:8081/resetpass?mail=${req.body.signEmail}&password=${req.body.signPassword}`//接收激活请求的链接
+                text: `点击重置：http://localhost:3000/resetpass?mail=${req.body.signEmail}&password=${req.body.signPassword}`//接收激活请求的链接
             });
             res.send("ok")
         }
