@@ -4,6 +4,7 @@ var nodemailer = require('nodemailer');
 var config = {
     host: 'smtp.163.com',
     port: 25,
+    secureConnection: true,
     auth: {
         user: 'm13720362902@163.com',
         pass: '1998521zrr'
