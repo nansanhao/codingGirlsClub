@@ -14,9 +14,9 @@
     border: none;
 }
 .navbar-default{
-    background-image: url(../img/coding.png);
-    background-repeat: no-repeat;
-    background-size:contain
+    /*background-image: url(../img/coding.png);*/
+    /*background-repeat: no-repeat;*/
+    /*background-size:contain*/
 }
 .breadcrumb a:hover{
     text-decoration: none;

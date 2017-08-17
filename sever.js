@@ -174,7 +174,7 @@ app.get('/usrs/:emailId/positions/public',function(req,res){
     let State = "public";
     //console.log(email);
     req.models.Position.find({owner:email,condition:State},function(err,position){
-        console.log(JSON.stringify(position));
+        //console.log(JSON.stringify(position));
         res.json(position);
     })
 });
@@ -275,7 +275,7 @@ app.get('/usrs/:emailId/positions/:id',function (req,res) {
     //console.log(email);
     //console.log(positionId);
     req.models.Position.find({owner:email,id:positionId},function (err,position) {
-        console.log(JSON.stringify(position));
+        //console.log(JSON.stringify(position));
         res.json(position);
     })
 });

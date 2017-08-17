@@ -2,9 +2,9 @@
 let emailId=sessionStorage.getItem("emailId");
 window.onload = function(){
     $.get(`/users/${emailId}`,function (usr,status){
-        console.log(JSON.stringify(usr));
-        console.log(usr.id);
-        console.log(usr.usrCompanyAddress);
+        //console.log(JSON.stringify(usr));
+        //console.log(usr.id);
+        //console.log(usr.usrCompanyAddress);
         $('#detailEmail').attr('value', usr.usrEmail) ;
         // $('#detailCurrentPassword').attr('value', usr[0].usrPassword) ;
         $('#detailCompanyName').attr('value', usr.usrCompanyName) ;
@@ -44,14 +44,14 @@ window.addEventListener('DOMContentLoaded',function(){
         oneUser[0].usrCompanyProfession= document.getElementById("detailCompanyProfession").value;
         var judge = false;
         $.get(`/users/${emailId}`,function(user,status){
-            console.log(user.usrPassword);
-            console.log(currentPw);
+            //console.log(user.usrPassword);
+           // console.log(currentPw);
             if(user.usrPassword!==currentPw){
                 judge = false;
             }else{
                 judge = true;
             }
-            console.log(judge);
+            //console.log(judge);
             modify(password,confirmPw,oneUser,judge);
         });
         function modify(password,confirmPw,oneUser,judge){

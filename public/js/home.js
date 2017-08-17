@@ -19,13 +19,13 @@ $(document).ready(function () {
         let positions=cutPage(ans,pagePositionNum);
         appendPositions(1,'showPositions',positions);
         addPagination(1,positions);
-        console.log(JSON.stringify(positions))
+        //console.log(JSON.stringify(positions))
     })
     //搜索功能
     $("#homeSearchBtn").on('click',function () {
         if($("#homeSearch").val()!=null){
             $.get(`/positions/search?homeSearch=${$("#homeSearch").val()}`,function (ans) {
-                console.log(ans);
+                //console.log(ans);
                 document.getElementById("characters").options.selectedIndex = 0; //回到初始状态
                 $("#characters").selectpicker('refresh');//对searchPayState这个下拉框进行重置刷
                 document.getElementById("positions").options.selectedIndex = 0; //回到初始状态
@@ -41,7 +41,7 @@ $(document).ready(function () {
     //characters筛选功能
     $("#characters").change(function(){
             $.get(`/positions/search?homeSearch=${$("#homeSearch").val()}`,function (ans) {
-                console.log(ans);
+                //console.log(ans);
                 //筛选框的判定
                 if($("#characters").find("option:selected").text()=="No Select"&&$("#positions").find("option:selected").text()!="No Select"){
                     for(let i=ans.length-1;i>=0;i--){
@@ -73,7 +73,7 @@ $(document).ready(function () {
     //positions筛选功能
     $("#positions").change(function(){
         $.get(`/positions/search?homeSearch=${$("#homeSearch").val()}`,function (ans) {
-            console.log(ans);
+            //console.log(ans);
             //筛选框的判定
             if($("#characters").find("option:selected").text()=="No Select"&&$("#positions").find("option:selected").text()!="No Select"){
                 for(let i=ans.length-1;i>=0;i--){

@@ -22,7 +22,7 @@ $(document).ready(function () {
         let isRemember=$("#rememberPassword").is(":checked");
 
             $.get(`/users/${email}`,function (ans) {
-                console.log(JSON.stringify(ans));
+                //console.log(JSON.stringify(ans));
                 let user=ans;
                 if(ans.length==0){
                     $("#loginPassword").val('');

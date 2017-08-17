@@ -24,7 +24,7 @@ $(document).ready(function(){
        let positions=cutPage(ans,pagePositionNum);
        appendPositions(1,'showPositions',positions);
        addPagination(1,positions);
-       console.log(JSON.stringify(positions))
+       //console.log(JSON.stringify(positions))
 
     });
     //分页功能
