@@ -1,5 +1,6 @@
 
 window.onload=function () {
+    //alert("sss")
     if(sessionStorage.getItem("emailId")){
         let emailId = sessionStorage.getItem("emailId");
         $("#logAcount").empty();
