@@ -126,11 +126,11 @@ app.post("/users",function (req,res) {
     var countx=0;
     newRecord.usrPassword = req.body.signConfirmPassword;
     newRecord.usrEmail = req.body.signEmail;
-    console.log(newRecord.usrEmail);
-    console.log(newRecord.usrPassword);
+    //console.log(newRecord.usrEmail);
+    //console.log(newRecord.usrPassword);
     req.models.User.count(null, function (err, edcount) {
         countx = edcount;
-        console.log(edcount);
+        //console.log(edcount);
         newRecord.id = countx + 1;
 
         req.models.User.find({usrEmail: newRecord.usrEmail}, function (err, user) {
@@ -139,8 +139,7 @@ app.post("/users",function (req,res) {
                 mailer({
                     to: newRecord.usrEmail,
                     subject: '激活帐号',
-                    text: `点击激活：<a href="http://127.0.0.1:8081/checkCode?mail=${newRecord.usrEmail}&psw=${newRecord.usrPassword}&id=${newRecord.id}
-                     您还可以回到主页:<a href="http://127.0.0.1:8081`//接收激活请求的链接
+                    text: `点击激活：http://127.0.0.1:8081/checkCode?mail=${newRecord.usrEmail}&psw=${newRecord.usrPassword}&id=${newRecord.id}`//接收激活请求的链接
                 })
                 res.send("ok")
                 console.log("ok")
@@ -173,7 +172,7 @@ app.post('/users/:emailId',function(req,res){
 app.get('/usrs/:emailId/positions/public',function(req,res){
     let email = req.params.emailId;
     let State = "public";
-    console.log(email);
+    //console.log(email);
     req.models.Position.find({owner:email,condition:State},function(err,position){
         console.log(JSON.stringify(position));
         res.json(position);
@@ -182,7 +181,7 @@ app.get('/usrs/:emailId/positions/public',function(req,res){
 app.get('/usrs/:emailId/positions',function (req,res) {
     let email = req.params.emailId;
     req.models.Position.find({owner:email},function(err,position){
-        console.log(JSON.stringify(position));
+        //console.log(JSON.stringify(position));
         res.json(position);
     })
 })
@@ -191,9 +190,9 @@ app.get('/usrs/:emailId/positions',function (req,res) {
 app.get('/usrs/:emailId/positions/hidden',function(req,res){
     let email = req.params.emailId;
     let State = "hidden";
-    console.log(email);
+    //console.log(email);
     req.models.Position.find({owner:email,condition:State},function(err,position){
-        console.log(JSON.stringify(position));
+        //console.log(JSON.stringify(position));
         res.json(position);
     })
 });
@@ -202,7 +201,7 @@ app.get('/usrs/:emailId/positions/hidden',function(req,res){
 app.post("/usrs/:emailId/positions",upload.single(),function(req,res){
     let email = req.params.emailId;
     req.models.Position.count(null,function(err,count){
-        console.log(count);
+        //console.log(count);
         req.models.Position.create({
             id: count+1001,
             title: req.body.editTitle,
@@ -234,8 +233,8 @@ app.put('/usrs/:emailId/positions/:id',function (req,res) {
     //检测数据是否取到
     let email=req.params.emailId;
     let positionId=req.params.id;
-    console.log(email);
-    console.log(positionId);
+    //console.log(email);
+    //console.log(positionId);
     req.models.Position.find({owner:email,id:positionId},function (err,position){
         position[0].remove(function (err) {
             if(err){
@@ -273,8 +272,8 @@ app.put('/usrs/:emailId/positions/:id',function (req,res) {
 app.get('/usrs/:emailId/positions/:id',function (req,res) {
     let email=req.params.emailId;
     let positionId=req.params.id;
-    console.log(email);
-    console.log(positionId);
+    //console.log(email);
+    //console.log(positionId);
     req.models.Position.find({owner:email,id:positionId},function (err,position) {
         console.log(JSON.stringify(position));
         res.json(position);
@@ -290,18 +289,19 @@ app.get('/checkCode', function (req, res) {
     newRecord.usrEmail = usermail;
     newRecord.usrPassword = psw;
     req.models.User.create(newRecord, function (err, user) {
-        console.log(user);
-        res.send("恭喜你，注册成功！\n您还可以回到主页:<a href=http://127.0.0.1:8081");
+        //console.log(user);
+        //res.send(`恭喜你，注册成功！您还可以回到<a href=http://127.0.0.1:8081>主页</a>`);
+        res.sendFile(__dirname+`/public/html/anivate.html`)
     });
 });
 //12.GET 一个用户获得‪一个职位的信息（返回一个职位JOSN对象） ksj
 app.get('/usrs/workDetail',function (req,res) {
     let email=req.query.emailId;
     let positionId=req.query.Id;
-    console.log(email);
-    console.log(positionId);
+    //console.log(email);
+    //console.log(positionId);
     req.models.Position.find({owner:email,id:positionId},function (err,position) {
-        console.log(JSON.stringify(position));
+        //console.log(JSON.stringify(position));
         res.json(position);
     })
 });
@@ -334,8 +334,8 @@ app.post('/usrs/positions/edit',upload.single(),function (req,res) {
     //检测数据是否取到
     let email=req.query.emailId;
     let positionId=req.query.Id;
-    console.log(email);
-    console.log(positionId);
+    //console.log(email);
+    //console.log(positionId);
     req.models.Position.find({owner:email,id:positionId},function (err,position){
         position[0].title=req.body.title;
         position[0].company=req.body.company;
@@ -360,8 +360,8 @@ app.post('/usrs/positions/edit',upload.single(),function (req,res) {
 });
 //13.修改密码发送邮件
 app.post("/change_pass",function(req,res){
-    console.log(req.body.signEmail);
-    console.log(req.body.signPassword);
+    //console.log(req.body.signEmail);
+    //console.log(req.body.signPassword);
     req.models.User.find({usrEmail:req.body.signEmail},function(err,user){
 
         if(user.length==0) {
@@ -373,6 +373,7 @@ app.post("/change_pass",function(req,res){
                 subject:'重置密码',
                 text: `点击重置：http://127.0.0.1:8081/resetpass?mail=${req.body.signEmail}&password=${req.body.signPassword}`//接收激活请求的链接
             });
+            res.send("ok")
         }
     })
 });
@@ -380,17 +381,17 @@ app.post("/change_pass",function(req,res){
 app.get('/resetpass', function (req, res){
     var usermail = req.query.mail;
     var secpass = req.query.password;
-    console.log(usermail);
-    console.log(secpass);
+    //console.log(usermail);
+    //console.log(secpass);
     req.models.User.find({usrEmail:usermail}, function (err, user){
-        console.log(JSON.stringify(user));
+        //console.log(JSON.stringify(user));
         user[0].usrPassword=secpass;
         user[0].save(function (err) {
             if(err){
                 return res.status(500).json({error:err.message});
             }
             else{
-                res.send(`<p>用户密码更新成功,你可以<a href=" ">登录</a >试试`);
+                res.sendFile(__dirname+`/public/html/resetPassword.html`);
             }
 
         })

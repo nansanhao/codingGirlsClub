@@ -11,12 +11,12 @@
     <script src="/js/workDetail.js" ></script>
     <link href="/css/workDetail.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
+<body style="padding-top: 210px">
 <!--导航栏-->
-<nav class="navbar navbar-default" role="navigation">
-    <div class="container">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="z-index: 99999">
+    <div class="container" >
         <!--注册和登录按钮-->
-        <ul class="nav navbar-nav navbar-right " id="logAcount">
+        <ul class="nav navbar-nav navbar-right " id="logAcount" >
             <li><a href="/html/signIn.html"><span class="glyphicon glyphicon-user"></span> REGISTER</a></li>
             <li><a href="/html/login.html"><span class="glyphicon glyphicon-log-in"></span> SIGN IN</a></li>
         </ul>
@@ -45,71 +45,72 @@
         <!---->
     </div>
 </nav>
-<div  style="width: 100%;height: 160px;background-color: #209b60;margin-top: -20px ;padding: 40px">
-    <div class="container">
-        <div class="col-sm-6" >
-            <h1 style="color: white">WORK</h1>
-        </div>
-        <div class="col-sm-6 text-right"  >
-            <ol class="breadcrumb">
-                <li>
-                    <a href="/html/home.html" >Home</a>
-                </li>
-                <li style="color: white">work detail</li>
-            </ol>
+<!---->
+<nav class="navbar  navbar-fixed-top" role="navigation" style="margin-top: 20px!important;">
+    <div class="container" style="width: 100%;height: 50px"></div>
+    <div  style="width: 100%;height: 160px;background-color: #209b60;margin-top: -20px ;padding: 40px">
+        <div class="container">
+            <div class="col-sm-6" >
+                <h1 style="color: white">WORK</h1>
+            </div>
+
+            <div class="col-sm-6 text-right"  >
+                <ol class="breadcrumb" >
+                    <li>
+                        <a href="/html/home.html" >Home</a>
+                    </li>
+                    <li style="color: white">work detail</li>
+                </ol>
+            </div>
         </div>
     </div>
-</div>
+</nav>
 <p id="test" type="text" style="text-align: center;width:100%; position: absolute ;"></p>
-<!---->
-<!--<form id="form1">-->
-<!--<input type="text" id="title" readonly="readonly">title<br>-->
-<!--<input type="text" id="company" readonly="readonly">company<br>-->
-<!--<input type="text" id="description" readonly="readonly">description<br>-->
-<!--<input type="text" id="tags" readonly="readonly">tags<br>-->
-<!--<input type="text" id="apply" readonly="readonly">apply<br>-->
-<!--<button id="publish">publish</button>-->
-<!--<button id="edit">edit</button>-->
-<!--</form>-->
+<br>
+
+<div class="container"  id="workDetail">
+
+
+</div>
 <div class="container" id="content" style="width: 500px;">
     <form id="form1">
         <div class="accountInfo">
-            <!--Email输入框-->
-            <div class="input-group input-login detailE" style="margin: 100px auto 0 auto">
-                <input type="text" class="form-control input-login" id="title" readonly="readonly" placeholder="Title" >
-                <span class="input-group-addon input-group-addon-icon"  >
-                <span class="glyphicon glyphicon-user glyphicon-icon" ></span></span>
-            </div>
-            <!---->
-            <!--公司名称输入框-->
-            <div class="input-group input-login detailE" style="margin: 50px auto 0 auto">
-                <input type="text" class="form-control input-login " id="company" readonly="readonly" placeholder="CompanyName">
-                <span class="input-group-addon input-group-addon-icon">
-                <span class="glyphicon glyphicon glyphicon-dashboard glyphicon-icon"></span></span>
-            </div>
-            <!---->
-            <!--公司地址输入框-->
-            <div class="input-group input-login detailE" style="margin: 50px auto 0 auto">
-                <input type="text" class="form-control input-login " id="description" readonly="readonly" placeholder="Description">
-                <span class="input-group-addon input-group-addon-icon ">
-                <span class="glyphicon glyphicon glyphicon-record glyphicon-icon"></span></span>
-            </div>
-            <!---->
-            <!--公司所属行业输入框-->
-            <div class="input-group input-login detailE" style="margin: 50px auto 0 auto">
-                <input type="text" class="form-control input-login " id="tags" readonly="readonly" placeholder="Apply">
-                <span class="input-group-addon input-group-addon-icon">
-                <span class="glyphicon glyphicon-globe glyphicon-icon"></span></span>
-            </div>
-            <!---->
-            <!--password输入框-->
-            <div class="input-group input-login detailE" style="margin: 50px auto 0 auto">
-                <input type="text" class="form-control input-login " id="apply" readonly="readonly" placeholder="Date">
-                <span class="input-group-addon input-group-addon-icon">
-                <span class="glyphicon glyphicon-lock glyphicon-icon"></span></span>
-            </div>
-            <!---->
-            <br>
+            <!--&lt;!&ndash;Email输入框&ndash;&gt;-->
+            <!--<div class="input-group input-login detailE" style="margin: 100px auto 0 auto">-->
+                <!--<input type="text" class="form-control input-login" id="title" readonly="readonly" placeholder="Title" >-->
+                <!--<span class="input-group-addon input-group-addon-icon"  >-->
+                <!--<span class="glyphicon glyphicon-user glyphicon-icon" ></span></span>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;&ndash;&gt;-->
+            <!--&lt;!&ndash;公司名称输入框&ndash;&gt;-->
+            <!--<div class="input-group input-login detailE" style="margin: 50px auto 0 auto">-->
+                <!--<input type="text" class="form-control input-login " id="company" readonly="readonly" placeholder="CompanyName">-->
+                <!--<span class="input-group-addon input-group-addon-icon">-->
+                <!--<span class="glyphicon glyphicon glyphicon-dashboard glyphicon-icon"></span></span>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;&ndash;&gt;-->
+            <!--&lt;!&ndash;公司地址输入框&ndash;&gt;-->
+            <!--<div class="input-group input-login detailE" style="margin: 50px auto 0 auto">-->
+                <!--<input type="text" class="form-control input-login " id="description" readonly="readonly" placeholder="Description">-->
+                <!--<span class="input-group-addon input-group-addon-icon ">-->
+                <!--<span class="glyphicon glyphicon glyphicon-record glyphicon-icon"></span></span>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;&ndash;&gt;-->
+            <!--&lt;!&ndash;公司所属行业输入框&ndash;&gt;-->
+            <!--<div class="input-group input-login detailE" style="margin: 50px auto 0 auto">-->
+                <!--<input type="text" class="form-control input-login " id="tags" readonly="readonly" placeholder="Apply">-->
+                <!--<span class="input-group-addon input-group-addon-icon">-->
+                <!--<span class="glyphicon glyphicon-globe glyphicon-icon"></span></span>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;&ndash;&gt;-->
+            <!--&lt;!&ndash;password输入框&ndash;&gt;-->
+            <!--<div class="input-group input-login detailE" style="margin: 50px auto 0 auto">-->
+                <!--<input type="text" class="form-control input-login " id="apply" readonly="readonly" placeholder="Date">-->
+                <!--<span class="input-group-addon input-group-addon-icon">-->
+                <!--<span class="glyphicon glyphicon-lock glyphicon-icon"></span></span>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;&ndash;&gt;-->
+            <!--<br>-->
             <!--&lt;!&ndash;发布和编辑按钮&ndash;&gt;-->
             <!--<div class="btn-group btn-group-justified" >-->
                 <!--<div class="btn-group" role="group">-->
@@ -158,11 +159,39 @@
                     var responseJson = JSON.parse(response);
                     var responseObj = responseJson[0];
                     var form = document.getElementById("form1");
-                    form.elements[0].value = responseObj.title;
-                    form.elements[1].value = responseObj.company;
-                    form.elements[2].value = responseObj.description;
-                    form.elements[3].value = responseObj.tags;
-                    form.elements[4].value = responseObj.applyMethod;
+                    let position=responseObj;
+                    let str = `<h1>${position.title} <small style="color: #209b60;">TO  ${position.expiryDate}</small></h1><br>`
+                    let temp=position.tags.split("/");
+                    for(let i=0;i<temp.length;i++){
+                        if(i%3==0){
+                            str+=`  <span class="label label-primary">${temp[i]}</span>`
+                        }else if(i%3==1){
+                            str+=`  <span class="label label-warning">${temp[i]}</span>`
+                        }else if(i%3==2){
+                            str+=`  <span class="label label-danger">${temp[i]}</span>`
+                        }
+
+                    }
+
+                    str+=` <span class="label label-primary"> ${position.jobType} </span>&nbsp; <span class="label label-success"> ${position.category}</span><br><br>
+                    <h2>${position.country}  ${position.city}</h2>
+                    <br><br>
+                    <h4>招聘公司：${position.company}</h4>
+                    <br><br>
+                    <h4>求职过程：${position.applyMethod}</h4>
+                    <br><br>
+
+                        <blockquote style=" font-size: 18px">
+                            ${position.description}
+                        </blockquote>
+                </div>`;
+                    //alert(str)
+                    $('#workDetail').append(str);
+//                    form.elements[0].value = responseObj.title;
+//                    form.elements[1].value = responseObj.company;
+//                    form.elements[2].value = responseObj.description;
+//                    form.elements[3].value = responseObj.tags;
+//                    form.elements[4].value = responseObj.applyMethod;
                 }
                 else {
                     alert("error");

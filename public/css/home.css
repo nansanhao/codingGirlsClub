@@ -17,8 +17,7 @@
 /*职位的css样式*/
 .position{
     border:1px solid #ccc;
-    margin-left: 100px;
-    margin-bottom:20px ;
+    margin: 40px;
 
 }
 .position-h{
@@ -30,7 +29,9 @@
 .navbar-default{
     background-image: url(../img/coding.png);
     background-repeat: no-repeat;
-    background-size:contain
+    background-size:contain;
+
+
 }
 .breadcrumb a:hover{
     text-decoration: none;
@@ -51,7 +52,42 @@
 }
 .bootstrap-select button{
     height: 50px!important;
-
-
-
 }
+.box9{
+    margin: 40px ;
+    width: 300px;
+    min-height: 210px;
+    padding: 10px;
+    position:relative;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius:20px;
+    background: white;
+    -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+}
+
+.box9:before{
+    content: '';
+    width: 110%;
+    left: 0;
+    height: 111%;
+    z-index:-1;
+    position:absolute;
+    border-radius:20px;
+    border: 1px solid rgba(0,0,0, 0.1);
+    /*background: rgba(0, 0, 0, 0.0);*/
+    background-color: #209b60;
+    -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    -webkit-transform:     translate(-5%,-5%);
+}
+
+/*.box9:after{*/
+    /*content: '';*/
+    /*position:absolute;*/
+    /*top:-25px; left: 30%;*/
+    /*width: 130px;*/
+    /*height: 40px;*/
+    /*background: -webkit-gradient(linear, 555% 20%, 0% 92%, from(rgba(33, 55, 96, 0.1)), to(rgba(33, 55, 96, 0.0)), color-stop(.1,rgba(0, 0, 0, 0.2)));*/
+    /*border-left: 1px dashed rgba(0, 0, 0, 0.1);*/
+    /*border-right: 1px dashed rgba(0, 0, 0, 0.1);*/
+    /*-webkit-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);*/
+/*}*/

@@ -19,6 +19,7 @@ $(document).ready(function () {
                 $("#signConfirmPassword").attr("disabled","disabled");
                 $("#signIn").text("SEND EMAIL AGAIN");
             }else {
+                $('#test').empty();
                 let str = "<div class='alert alert-danger alert-dismissible' role='alert' style='font-size: 20px'>"+
                     "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"+
                     "<span aria-hidden='true'>&times;</span>"+"</button>"+" WARNING&nbsp;!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The mailbox has been registered</div>";

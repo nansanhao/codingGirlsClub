@@ -11,12 +11,12 @@
     <script src="/js/edit.js" ></script>
     <link href="/css/edit.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
+<body style="padding-top: 210px">
 <!--导航栏-->
-<nav class="navbar navbar-default" role="navigation">
-    <div class="container">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="z-index: 99999">
+    <div class="container" >
         <!--注册和登录按钮-->
-        <ul class="nav navbar-nav navbar-right " id="logAcount">
+        <ul class="nav navbar-nav navbar-right " id="logAcount" >
             <li><a href="/html/signIn.html"><span class="glyphicon glyphicon-user"></span> REGISTER</a></li>
             <li><a href="/html/login.html"><span class="glyphicon glyphicon-log-in"></span> SIGN IN</a></li>
         </ul>
@@ -45,21 +45,26 @@
         <!---->
     </div>
 </nav>
-<div  style="width: 100%;height: 160px;background-color: #209b60;margin-top: -20px ;padding: 40px">
-    <div class="container">
-        <div class="col-sm-6" >
-            <h1 style="color: white">EDIT</h1>
-        </div>
-        <div class="col-sm-6 text-right"  >
-            <ol class="breadcrumb">
-                <li>
-                    <a href="/html/home.html" >Home</a>
-                </li>
-                <li style="color: white">edit work</li>
-            </ol>
+<!---->
+<nav class="navbar  navbar-fixed-top" role="navigation" style="margin-top: 20px!important;">
+    <div class="container" style="width: 100%;height: 50px"></div>
+    <div  style="width: 100%;height: 160px;background-color: #209b60;margin-top: -20px ;padding: 40px">
+        <div class="container">
+            <div class="col-sm-6" >
+                <h1 style="color: white">EDIT</h1>
+            </div>
+
+            <div class="col-sm-6 text-right"  >
+                <ol class="breadcrumb" >
+                    <li>
+                        <a href="/html/home.html" >Home</a>
+                    </li>
+                    <li style="color: white">edit work</li>
+                </ol>
+            </div>
         </div>
     </div>
-</div>
+</nav>
 <p id="test" type="text" style="text-align: center;width:100%; position: absolute ;"></p>
 <div class="container" id="content" >
     <form id="form1">
@@ -175,7 +180,7 @@
             </div>
             <!--更改按钮和注销按钮-->
             <div class="bs-example" id="butt" style="width: 500px; margin: 50px auto 0 auto">
-                <button type="submit" class="btn btn-primary" id="postAddPosition" style="width: 500px;height: 50px" id="modify">CREATE ITEM</button>
+                <button type="submit" class="btn btn-primary" id="postAddPosition" style="width: 500px;height: 50px" id="modify">MAKE A CHANGE</button>
             </div>
             <!---->
         </div>
@@ -207,15 +212,15 @@
                     var responseObj = responseJson[0];
                     var form = document.getElementById("form1");
                     form.elements[0].value = responseObj.title;
-                    form.elements[1].value = responseObj.company;
-                    form.elements[2].value = responseObj.description;
-                    form.elements[3].value = responseObj.applyMethod;
-                    form.elements[4].value = responseObj.expiryDate;
-                    form.elements[5].value = responseObj.category;
-                    form.elements[6].value = responseObj.jobType;
-                    form.elements[7].value = responseObj.tags;
-                    form.elements[8].value = responseObj.city;
-                    form.elements[9].value = responseObj.country;
+                    form.elements[1].value = responseObj.country;
+                    form.elements[2].value = responseObj.category;
+                    form.elements[3].value = responseObj.city;
+                    form.elements[4].value = responseObj.jobType;
+                    form.elements[5].value = responseObj.company;
+                    form.elements[6].value = responseObj.tags;
+                    form.elements[7].value = responseObj.applyMethod;
+                    form.elements[8].value = responseObj.description;
+                    form.elements[9].value = responseObj.expiryDate;
 //                    newRecord.expiryDate=req.body.expiryDate;
 //                    newRecord.category=req.body.category;
 //                    newRecord.jobType=req.body.jobType;

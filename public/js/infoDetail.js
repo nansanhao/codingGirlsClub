@@ -2,18 +2,34 @@
 $(document).ready(function() {
     //切割时要加href，不然没有显示
     let positionId = window.location.href.split("positionId=");
-    $.get(`/positions/${positionId[1]}`, function (position) {
-        let str = `<tr><td>title</td><td>${position[0].title}</td></tr>
-<tr><td>company</td><td>${position[0].company}</td></tr>
-<tr><td>description</td><td>${position[0].description}</td></tr>
-<tr><td>applyMethod</td><td>${position[0].applyMethod}</td></tr>
-<tr><td>expiryDate</td><td>${position[0].expiryDate}</td></tr>
-<tr><td>category</td><td>${position[0].category}</td></tr>
-<tr><td>jobType</td><td>${position[0].jobType}</td></tr>
-<tr><td>tags</td><td>${position[0].tags}</td></tr>
-<tr><td>country</td><td>${position[0].country}</td></tr>
-<tr><td>city</td><td>${position[0].city}</td></tr>
-<tr><td>condition</td><td>${position[0].condition}</td></tr>`;
-        $('#tab').append(str);
+    $.get(`/positions/${positionId[1]}`, function (ans) {
+        let position=ans[0];
+        let str = `<h1>${position.title} <small style="color: #209b60;">TO  ${position.expiryDate}</small></h1><br>`
+        let temp=position.tags.split("/");
+        for(let i=0;i<temp.length;i++){
+            if(i%3==0){
+                str+=`  <span class="label label-primary">${temp[i]}</span>`
+            }else if(i%3==1){
+                str+=`  <span class="label label-warning">${temp[i]}</span>`
+            }else if(i%3==2){
+                str+=`  <span class="label label-danger">${temp[i]}</span>`
+            }
+
+        }
+
+        str+=` <span class="label label-primary"> ${position.jobType} </span>&nbsp; <span class="label label-success"> ${position.category}</span><br><br>
+                    <h2>${position.country}  ${position.city}</h2>
+                    <br><br>
+                    <h4>招聘公司：${position.company}</h4>
+                    <br><br>
+                    <h4>求职过程：${position.applyMethod}</h4>
+                    <br><br>
+                
+                        <blockquote style=" font-size: 18px">
+                            ${position.description}
+                        </blockquote>
+                </div>`;
+        //alert(str)
+        $('#infoDetail').append(str);
     })
 });

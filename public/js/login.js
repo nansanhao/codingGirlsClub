@@ -44,6 +44,11 @@ $(document).ready(function () {
                             document.cookie=`emailId=${email}; expires=18 Dec 2016 12:00:00 GMT`;
                             document.cookie=`password=${password}; expires=18 Dec 2016 12:00:00 GMT`;
                         }
+                        $('#test').empty();
+                        let str1 = "<div class='alert alert-success alert-dismissible' role='alert' style='font-size: 20px'>"+
+                            "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"+
+                            "<span aria-hidden='true'>&times;</span>"+"</button>"+" SUCCESS&nbsp;!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login successfully</div>";
+                        $('#test').append(str1);
                         $("#logAcount").empty();
                         let str=`<li><a href="/html/accountDetail.html"><span class="glyphicon glyphicon-user"></span> ${email}</a></li>`;
                         str+=`<li><a href=""><span class="glyphicon glyphicon-log-out"></span> EXIT</a></li>`

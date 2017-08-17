@@ -81,11 +81,31 @@ function appendPositions(page,Id,positions) {
 }
 //把某个position加入html，htmlId是html上某个元素的id
 function positionToHtml(position,htmlId) {
-    let positionStr=`<div class="col-md-3 position" >
-        <h2><span class="glyphicon glyphicon-bookmark"></span> ${position.title}</h2>
-        <h4 class="position-h">${position.country} ${position.city}</h4>
-        <h4 class="position-h">${position.condition}</h4>
-        <a href="/html/workDetail.html?emailId=${sessionStorage.getItem("emailId")}&Id=${position.id}" class="position-a"><span class="glyphicon glyphicon-hand-right"></span> Know More</a>
+    let positionStr;
+    if(position.condition=='public'){
+        positionStr=`<div class="col-md-3 position box9" >
+        <h2>${position.title} <small><span>${position.condition}</span></small></h2>`;
+    }else {
+        positionStr=`<div class="col-md-3 position box9" >
+        <h2>${position.title} <small><span style="color: red">${position.condition}</span></small></h2>`;
+    }
+
+    let temp=position.tags.split("/");
+    for(let i=0;i<temp.length;i++){
+        if(i%3==0){
+            positionStr+=`  <span class="label label-primary">${temp[i]}</span>`
+        }else if(i%3==1){
+            positionStr+=`  <span class="label label-warning">${temp[i]}</span>`
+        }else if(i%3==2){
+            positionStr+=`  <span class="label label-danger">${temp[i]}</span>`
+        }
+
+    }
+
+    positionStr+=`<h4 class="position-h">${position.country} ${position.city} </h4>
+        <h4 class="position-h">${position.jobType}</h4>
+        <h4 class="position-h">${position.category}</h4>
+        <a href="/html/workDetail.html?emailId=${sessionStorage.getItem("emailId")}&Id=${position.id}" class="position-a"> CONTINUE..</a>
     </div>`
     $(`#${htmlId}`).append(positionStr)
 }

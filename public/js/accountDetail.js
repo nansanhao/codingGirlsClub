@@ -37,28 +37,43 @@ window.addEventListener('DOMContentLoaded',function(){
         let password = document.getElementById("detailPassword").value;
         let confirmPw = document.getElementById("detailConfirmPassword").value;
         let currentPw = document.getElementById("detailCurrentPassword").value;
-
-        if(password==confirmPw&&currentPw!=''){
-            let oneUser = [{}];
-            oneUser[0].usrPassword= document.getElementById("detailConfirmPassword").value;
-            oneUser[0].usrCompanyName= document.getElementById("detailCompanyName").value;
-            oneUser[0].usrCompanyAddress= document.getElementById("detailCompanyAddress").value;
-            oneUser[0].usrCompanyProfession= document.getElementById("detailCompanyProfession").value;
-            $.post(`/users/${emailId}`,oneUser[0],function(){
-                // alert(JSON.stringify(oneUser));
-                // console.log(status);
-            });
-            $('#test').empty();
-            let str = "<div class='alert alert-success alert-dismissible' role='alert'>"+
-                "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"+
-                "<span aria-hidden='true'>&times;</span>"+"</button>"+"SUCCESS&nbsp;!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Modify successfully</div>";
-            $('#test').append(str);
-        }else{
-            $('#test').empty()
-            let str = "<div class='alert alert-danger alert-dismissible' role='alert'>"+
-                "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"+
-                "<span aria-hidden='true'>&times;</span>"+"</button>"+" WARNING&nbsp;!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password error</div>";
-            $('#test').append(str);
+        let oneUser = [{}];
+        oneUser[0].usrPassword= document.getElementById("detailConfirmPassword").value;
+        oneUser[0].usrCompanyName= document.getElementById("detailCompanyName").value;
+        oneUser[0].usrCompanyAddress= document.getElementById("detailCompanyAddress").value;
+        oneUser[0].usrCompanyProfession= document.getElementById("detailCompanyProfession").value;
+        var judge = false;
+        $.get(`/users/${emailId}`,function(user,status){
+            console.log(user.usrPassword);
+            console.log(currentPw);
+            if(user.usrPassword!==currentPw){
+                judge = false;
+            }else{
+                judge = true;
+            }
+            console.log(judge);
+            modify(password,confirmPw,oneUser,judge);
+        });
+        function modify(password,confirmPw,oneUser,judge){
+            //alert(judge);
+            if(password==confirmPw&&judge==true){
+                $.post(`/users/${emailId}`,oneUser[0],function(){
+                    // alert(JSON.stringify(oneUser));
+                    // console.log(status);
+                });
+                $('#test').empty();
+                let str = "<div class='alert alert-success alert-dismissible' role='alert'>"+
+                    "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"+
+                    "<span aria-hidden='true'>&times;</span>"+"</button>"+"SUCCESS&nbsp;!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Modify successfully</div>";
+                $('#test').append(str);
+            }else{
+                $('#test').empty()
+                let str = "<div class='alert alert-danger alert-dismissible' role='alert'>"+
+                    "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"+
+                    "<span aria-hidden='true'>&times;</span>"+"</button>"+" WARNING&nbsp;!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password error</div>";
+                $('#test').append(str);
+            }
         }
+
     },false);
 });
