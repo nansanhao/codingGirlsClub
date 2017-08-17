@@ -2,7 +2,7 @@ var _ = require('lodash');
 var nodemailer = require('nodemailer');
 
 var config = {
-    host: 'ssl://smtp.163.com',
+    host: 'smtp.163.com',
     port: 465,
     secureConnection: true,
     auth: {
