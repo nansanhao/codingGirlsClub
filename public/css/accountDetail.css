@@ -58,3 +58,85 @@
     padding: 2px 10px;border-radius: 3px;
     display: block;
 }
+/*页脚*/
+#footer{
+    position: absolute;
+    top: 955px;
+    /*top: 20px;*/
+    width: 100%;
+    height: 520px;
+    background-color: #262626;
+}
+.col{
+    margin-top: 50px;
+    height: 380px;
+
+}
+#col1{
+    color: white;
+    /*background-color: #4cae4c;*/
+}
+#col2{
+    color: white;
+    /*background-color: #c7254e;*/
+}
+#col3{
+    color: white;
+    /*background-color: #843534;*/
+}
+#col4{
+    color: white;
+    /*background-color: #9acfea;*/
+}
+.a1{
+    color: #adadad;
+    font-size: 18px;
+}
+.a2{
+    font-size: 26px;
+}
+.a3{
+    color: whitesmoke;
+    font-size: 22px;
+}
+#rc1{
+    margin-left: 30px;
+}
+.h{
+    margin-bottom: 30px;
+}
+.p1{
+    margin-bottom: 20px;
+}
+.p1 a:link{
+    text-decoration: none;
+    color: white;
+    /* 指正常的未被访问过的链接*/
+}
+.p1 a:visited{
+    text-decoration:none;
+    /*指已经访问过的链接*/
+}
+.p1 a:hover{
+    text-decoration:none;
+    color:#4cae4c
+    /*指鼠标在链接*/
+}
+.p1 a:active{
+    text-decoration:none;
+    /* 指正在点的链接*/
+}
+#info{
+    position: absolute;
+    top: 1475px;
+    background-color: #0f0f0f;
+    width: 100%;
+    height: 80px;
+    color: white;
+    font-size: 24px;
+    text-align: center;
+}
+#info1{
+    padding-top: 30px;
+}
+/*页脚结束*/
