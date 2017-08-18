@@ -3,7 +3,7 @@ window.onload = function(){
         let emailId = sessionStorage.getItem("emailId");
         $("#logAcount").empty();
         let str=`<li><a href="/html/accountDetail.html"><span class="glyphicon glyphicon-user"></span> ${emailId}</a></li>`;
-        str+=`<li><a href="" id="LOGOUT"><span class="glyphicon glyphicon-log-out"></span> EXIT</a></li>`
+        str+=`<li><a href="/html/home.html" onclick="sessionStorage.clear()" id="LOGOUT"><span class="glyphicon glyphicon-log-out"></span> EXIT</a></li>`
         $("#logAcount").append(str);
     }
   var $slider = $('.slideshow .slider'),
