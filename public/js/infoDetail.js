@@ -1,6 +1,16 @@
 "use strict";
+window.onload=function () {
+    if(sessionStorage.getItem("emailId")){
+        let emailId = sessionStorage.getItem("emailId");
+        $("#logAcount").empty();
+        let str=`<li><a href="/html/accountDetail.html"><span class="glyphicon glyphicon-user"></span> ${emailId}</a></li>`;
+        str+=`<li><a href="/html/home.html" onclick="sessionStorage.clear()" id="LOGOUT"><span class="glyphicon glyphicon-log-out"></span> EXIT</a></li>`
+        $("#logAcount").append(str);
+    }
+}
 $(document).ready(function() {
     //切割时要加href，不然没有显示
+
     let positionId = window.location.href.split("positionId=");
     $.get(`/positions/${positionId[1]}`, function (ans) {
         let position=ans[0];
